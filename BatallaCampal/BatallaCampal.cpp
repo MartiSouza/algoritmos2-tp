@@ -437,13 +437,18 @@ void BatallaCampal::usarCarta(Jugador* jugador, int numero, int x, int y, int z,
 		}	
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta() == SUPER){
+		if((filaOColumna != 'C') && (filaOColumna != 'F')){
+			throw "se ingreso una letra distinta de C o F";
+		}
+
 		if (filaOColumna == 'C'){
 			dispararSuperMisil(y, filaOColumna);
 		}else if (filaOColumna == 'F'){
-			dispararSuperMisil(x, filaOColumna);
+				dispararSuperMisil(x, filaOColumna);
 		}
 	}
 }
+
 
 Tablero* BatallaCampal::getTablero(){
 	return this->tablero;
