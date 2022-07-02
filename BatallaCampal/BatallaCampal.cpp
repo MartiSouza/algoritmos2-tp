@@ -286,9 +286,9 @@ int BatallaCampal::usarRadar(int fila, int columna, int altura){
 	}
 
 	int contador = 0;
-	for (int i = 0; i <= 2; i++){
-		for (int j = 0; j <= 2; j++){
-			for (int k = 0; k <= 2; k++){
+	for (int i = -2; i <= 2; i++){
+		for (int j = -2; j <= 2; j++){
+			for (int k = -2; k <= 2; k++){
 				if((fila+i) > 0 && (columna+j) > 0 && (altura+k) > 0 && (fila+i) <= this->getDimensionDelTablero() && (columna+j) <= this->getDimensionDelTablero() && (altura+k) <= this->getDimensionDelTablero()){
 					if (this->tablero->getCasilla(fila+i, columna+j, altura+k)->getEstado() == LLENO){
 						contador++;
