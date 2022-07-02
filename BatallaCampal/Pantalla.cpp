@@ -266,36 +266,10 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux, Ju
 	}
 	if (herramientaAux->getTipo() == AVION){
 		cout << "Usando avion"<<endl;
-		cout << "Ingrese coordenadas de disparo adicional: "<<endl;
-		cout << "fila: ";
-		cin >> coordX;
-		cout << "columna: ";
-		cin >> coordY;
-		cout << "Altura: ";
-		cin >> coordZ;
-		cout << "Disparando..." <<endl;
-		if (batalla->soldadosCoinciden(coordX, coordY)){
-			cout << "Fuego amigo!" << endl;
-		}else if(batalla->eliminarEnemigo(coordX, coordY)){
-				batalla->realizarDisparo(coordX, coordY, coordZ);
-				cout << "Mataste a un soldado enemigo" << endl;
-				this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10));
-			}
-		cout << "Ingrese coordenadas del 2do disparo adicional: "<<endl;
-		cout << "fila: ";
-		cin >> coordX;
-		cout << "columna: ";
-		cin >> coordY;
-		cout << "Altura: ";
-		cin >> coordZ;
-		cout << "Disparando..." <<endl;
-		if (batalla->soldadosCoinciden(coordX, coordY)){
-			cout << "Fuego amigo!" << endl;
-		}else if(batalla->eliminarEnemigo(coordX, coordY)){
-				batalla->realizarDisparo(coordX, coordY, coordZ);
-				cout << "Mataste a un soldado enemigo" << endl;
-				this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10));
-			}
+		cout << "Primer disparo adicional: "<<endl;
+		solicitarDisparo(batalla);
+		cout << "Segundo disparo adicional: "<<endl;
+		solicitarDisparo(batalla);
 	}
 }
 void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador){
