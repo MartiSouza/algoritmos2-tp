@@ -48,7 +48,7 @@ void Pantalla::creacionImagen(){
 
 void Pantalla::pintarCirculo(int centerX, int centerY){
 	if(centerX < 1 || centerY < 1){
-		throw "Coordenadas inválidas";
+		throw "Coordenadas invÃ¡lidas";
 	}
 	RGBApixel FontColor;
 	FontColor.Red = 255;
@@ -61,7 +61,7 @@ void Pantalla::pintarCirculo(int centerX, int centerY){
 
 void Pantalla::pintarCirculoRojo(int centerX, int centerY){
 	if(centerX < 1 || centerY < 1){
-		throw "Coordenadas inválidas";
+		throw "Coordenadas invÃ¡lidas";
 	}
 	RGBApixel FontColor;
 	FontColor.Red = 255;
@@ -74,7 +74,7 @@ void Pantalla::pintarCirculoRojo(int centerX, int centerY){
 
 void Pantalla::pintarLineas(int tamanio){
 	if(tamanio < 20 || tamanio > 100){
-		throw "tamaño inválido";
+		throw "tamaÃ±o invÃ¡lido";
 	}
 	RGBApixel FontColor;
 	FontColor.Red = 0;
@@ -90,7 +90,7 @@ void Pantalla::pintarLineas(int tamanio){
 }
 void Pantalla::pintarCuadrado(int xi,int yi, int xf, int yf, TipoDeCasillero tipo){
 	if(xi < 1 || yi < 1 || xf < 1 || yf < 1){
-		throw "Coordenadas inválidas";
+		throw "Coordenadas invÃ¡lidas";
 	}
 	RGBApixel FontColor;
 	if(tipo == TIERRA){
@@ -109,10 +109,10 @@ void Pantalla::pintarCuadrado(int xi,int yi, int xf, int yf, TipoDeCasillero tip
 		FontColor.Blue = 223;
 	}
 	else if(tipo == GENERAL){
-		throw "Este tipo no es válido en el contexto de la Batalla Campal.";
+		throw "Este tipo no es vÃ¡lido en el contexto de la Batalla Campal.";
 	}
 	else{
-		throw "Tipo inválido de casillero.";
+		throw "Tipo invÃ¡lido de casillero.";
 	}
 	
 	
@@ -186,7 +186,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador){
 				this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10));
 			}
 			else{
-				cout << "Tu soldado se ahogó" << endl;
+				cout << "Tu soldado se ahogÃ³" << endl;
 			}
 		}
 		else{
@@ -224,13 +224,25 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 		cout << "Elegir Columna (C) o Fila (F): "<<endl;
 		cin >> filaOColumna;
 	}
+	
 	cout << "Ingrese coordenadas: "<<endl;
-	cout << "Fila: ";
-	cin >> coordX;
-	cout << "Columna: ";
-	cin >> coordY;
-	cout << "Altura: ";
-	cin >> coordZ;
+	if(carta->getTipoDeCarta() == MINAS){
+		cout << "Fila: ";
+		cin >> coordX;
+		cout << "Columna: ";
+		cin >> coordY;
+		coordZ = 1;
+	}
+	else{
+		cout << "Fila: ";
+		cin >> coordX;
+		cout << "Columna: ";
+		cin >> coordY;
+		cout << "Altura: ";
+		cin >> coordZ;
+	}
+
+	
 	if (carta->getTipoDeCarta() == RADAR){
 		if (batalla->esCoordenadaValida(coordX, coordY, coordZ) && batalla->esCoordenadaValida(coordX+2, coordY+2, coordZ+2) && batalla->esCoordenadaValida(coordX-2, coordY-2, coordZ-2)){
 		cout << "En los alrededores se encuentran "<< batalla->usarRadar(coordX, coordY, coordZ) << " cantidad de fichas"<<endl;
