@@ -9,7 +9,8 @@
 enum EstadoDelCasillero{
 	VACIO,
 	INACTIVO,
-	LLENO
+	LLENO,
+	MINADO
 };
 
 enum TipoDeCasillero{
