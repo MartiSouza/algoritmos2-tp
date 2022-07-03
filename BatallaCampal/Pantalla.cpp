@@ -13,6 +13,15 @@ Pantalla::Pantalla(){
 	this->Window = new Lista<BMP*>();
 }
 
+Pantalla::~Pantalla(){
+	if (this->Window) {
+		for (int i = 1; i < this->Window->contarElementos(); i++){
+			this->Window->remover(i);
+		}
+		delete[] this->Window;
+	}
+}
+
 void Pantalla::nuevaPartida(){
 
 	cout << "1.Partida rapida (2 jugadores)\n2.Partida personalizada (2 o mas jugadores)" <<endl;
@@ -252,8 +261,8 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 		}
 	}else{
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ, filaOColumna);
-		if(carta->getTipoDeCarta() == BARCOS) {
-			this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10), 1);
+		if(carta->getTipoDeCarta() == BARCOS || carta->getTipoDeCarta() == AVIONES) {
+			this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10), coordZ);
 		}
 	}
 	cout << "Ejecutado carta " << carta->getDescripcion()<<endl;

@@ -108,6 +108,11 @@ class Pantalla{
 		 */
 		void creacionImagen();
 
+		/*
+		*Pre: -
+		*Post: destruye la instancia de pantalla.
+		*/
+		virtual ~Pantalla();
 };
 
 
