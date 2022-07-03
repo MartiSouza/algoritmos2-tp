@@ -233,12 +233,26 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 	cin >> coordZ;
 	if (carta->getTipoDeCarta() == RADAR){
 		cout << "En los alrededores se encuentran "<< batalla->usarRadar(coordX, coordY, coordZ) << " cantidad de fichas"<<endl;
-	} if (carta->getTipoDeCarta() == BARCO){
+	}else if (carta->getTipoDeCarta() == BARCO){
 		this->pintarCirculo(coordX, coordY);
 	}
-	else{
-		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ, filaOColumna);
+	else if (carta->getTipoDeCarta() == MISIL && coordZ < 3){
+		for (int i = -1; i <= 1; i++){
+			for (int j = -1; j <= 1; j++){
+				this->pintarEquis(coordX+i, coordY+j);
+			}
+		}
 	}
+	else if (carta->getTipoDeCarta() == SUPER){
+		if (filaOColumna == 'C'){
+			for (int i = 1; i <= this->getDimensionDelTablero(); i++)
+			this->pintarEquis(coordX, i);
+		}else if (filaOColumna == 'F'){
+			for (int i = 1; i <= this->getDimensionDelTablero(); i++)
+			this->pintarEquis(i, coordY);
+		}
+	}
+	batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ, filaOColumna);
 	cout << "Ejecutado carta " << carta->getDescripcion()<<endl;
 	jugador->eliminarCarta(numeroCarta);
 }
@@ -264,6 +278,13 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux, Ju
 		cout << "Altura: ";
 		cin >> coordZ;
 		batalla->dispararMisil(coordX, coordY, coordZ);
+		if (coordZ < 3){
+			for (int i = -1; i <= 1; i++){
+				for (int j = -1; j <= 1; j++){
+					this->pintarEquis(coordX + i, coordY + j);
+				}
+			}
+		}
 	}
 	if (herramientaAux->getTipo() == AVION){
 		cout << "Usando avion"<<endl;
