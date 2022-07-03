@@ -10,6 +10,7 @@ Pantalla::Pantalla(){
 	this->cantidadSoldados = 3;
 	this->dimensionDelTablero = 20;
 	this->mapaOpcion = rand() % 3 + 1;
+	this->Window = new Lista<BMP*>();
 }
 
 void Pantalla::nuevaPartida(){
@@ -33,20 +34,26 @@ void Pantalla::nuevaPartida(){
 }
 
 void Pantalla::creacionImagen(){
-	RGBApixel White;
-	White.Red = 255;
-	White.Green = 255;
-	White.Blue = 255;
-	for(int j=0;j < this->Window.TellHeight();j++){
-		for(int i=0 ; i < this->Window.TellWidth();i++){
-			*this->Window(i,j) = White;
-		}
-	}
+	int z = 0;
 
-	this->Window.WriteToFile("tablero.bmp");
+	while(z < this->dimensionDelTablero) {
+		z++;
+		RGBApixel White;
+		White.Red = 255;
+		White.Green = 255;
+		White.Blue = 255;
+
+		for(int j=0;j < this->Window->get(z)->TellHeight();j++){
+			for(int i=0 ; i < this->Window->get(z)->TellWidth();i++){
+				this->Window->get(z)->SetPixel(i, j, White);
+			}
+		}
+
+		this->Window->get(z)->WriteToFile(("tablero" + std::to_string(z) + ".bmp").c_str());
+	}
 }
 
-void Pantalla::pintarCirculo(int centerX, int centerY){
+void Pantalla::pintarCirculo(int centerX, int centerY, int z){
 	if(centerX < 1 || centerY < 1){
 		throw "Coordenadas inválidas";
 	}
@@ -54,12 +61,12 @@ void Pantalla::pintarCirculo(int centerX, int centerY){
 	FontColor.Red = 255;
 	FontColor.Green = 255;
 	FontColor.Blue = 255;
-	DrawArc(this->Window, centerY+20, centerX+20, 5, 0, 360, FontColor);
+	DrawArc(*this->Window->get(z), centerY+20, centerX+20, 5, 0, 360, FontColor);
 
-	this->Window.WriteToFile("tablero.bmp");
+	this->Window->get(z)->WriteToFile(("tablero" + std::to_string(z) + ".bmp").c_str());
 }
 
-void Pantalla::pintarCirculoRojo(int centerX, int centerY){
+void Pantalla::pintarCirculoRojo(int centerX, int centerY, int z){
 	if(centerX < 1 || centerY < 1){
 		throw "Coordenadas inválidas";
 	}
@@ -67,28 +74,34 @@ void Pantalla::pintarCirculoRojo(int centerX, int centerY){
 	FontColor.Red = 255;
 	FontColor.Green = 0;
 	FontColor.Blue = 0;
-	DrawArc(this->Window, centerY+20, centerX+20, 5, 0, 360, FontColor);
+	DrawArc(*this->Window->get(z), centerY+20, centerX+20, 5, 0, 360, FontColor);
 
-	this->Window.WriteToFile("tablero.bmp");
+	this->Window->get(z)->WriteToFile(("tablero" + std::to_string(z) + ".bmp").c_str());
 }
 
 void Pantalla::pintarLineas(int tamanio){
 	if(tamanio < 20 || tamanio > 100){
 		throw "tamaño inválido";
 	}
-	RGBApixel FontColor;
-	FontColor.Red = 0;
-	FontColor.Green = 0;
-	FontColor.Blue = 0;
-	for (int i = 20; i <= tamanio*tamanio; i = i+20){
-		for (int j = 20; j <= tamanio*tamanio; j = j+20){
-			DrawLine(this->Window, i, j, i, tamanio*tamanio, FontColor);
-			DrawLine(this->Window, j, i, tamanio*tamanio, i, FontColor);
+
+	int z = 0;
+
+	while(z < this->dimensionDelTablero) {
+		z++;
+		RGBApixel FontColor;
+		FontColor.Red = 0;
+		FontColor.Green = 0;
+		FontColor.Blue = 0;
+		for (int i = 20; i <= tamanio*tamanio; i = i+20){
+			for (int j = 20; j <= tamanio*tamanio; j = j+20){
+				DrawLine(*this->Window->get(z), i, j, i, tamanio*tamanio, FontColor);
+				DrawLine(*this->Window->get(z), j, i, tamanio*tamanio, i, FontColor);
+			}
 		}
+		this->Window->get(z)->WriteToFile(("tablero" + std::to_string(z) + ".bmp").c_str());
 	}
-	this->Window.WriteToFile("tablero.bmp");
 }
-void Pantalla::pintarCuadrado(int xi,int yi, int xf, int yf, TipoDeCasillero tipo){
+void Pantalla::pintarCuadrado(int xi,int yi, int xf, int yf, int z, TipoDeCasillero tipo){
 	if(xi < 1 || yi < 1 || xf < 1 || yf < 1){
 		throw "Coordenadas inválidas";
 	}
@@ -117,10 +130,10 @@ void Pantalla::pintarCuadrado(int xi,int yi, int xf, int yf, TipoDeCasillero tip
 	
 	
 	while (yi <= yf){
-		DrawLine(this->Window, xi, yi, xf, yi, FontColor);
+		DrawLine(*this->Window->get(z), xi, yi, xf, yi, FontColor);
 		yi++;
 	}
-	this->Window.WriteToFile("tablero.bmp");
+	this->Window->get(z)->WriteToFile(("tablero" + std::to_string(z) + ".bmp").c_str());
 }
 
 void Pantalla::generarMapa(BatallaCampal* batalla, Pantalla* pantalla){
@@ -134,30 +147,32 @@ void Pantalla::generarMapa(BatallaCampal* batalla, Pantalla* pantalla){
 	LightGray.Blue = 192;
 	int xi,xf,yi,yf;
 
-	this->Window.SetSize((pantalla->getDimensionDelTablero()*20)+20, (pantalla->getDimensionDelTablero()*20)+20);
-	for( int j=0 ; j < this->Window.TellHeight() ; j++ ){
-		for( int i=0 ; i < this->Window.TellWidth() ; i++ ){
-			*this->Window(i,j) = LightGray;
+	int z = 0;
+
+	while(z <= this->getDimensionDelTablero()){
+		z++;
+
+		BMP* imagen = new BMP();
+		this->Window->add(imagen);
+		imagen->SetSize((pantalla->getDimensionDelTablero()*20)+20, (pantalla->getDimensionDelTablero()*20)+20);
+		for( int j=0 ; j < imagen->TellHeight() ; j++ ){
+			for( int i=0 ; i < imagen->TellWidth() ; i++ ){
+				imagen->SetPixel(i, j, LightGray);
+			}
 		}
 	}
+
 	creacionImagen();
 
-	for (int x = 1; x <= batalla->getDimensionDelTablero(); x++){
-	        for (int y = 1; y <= batalla->getDimensionDelTablero(); y++){
-	            	for (int z = 1; z <= batalla->getDimensionDelTablero(); z++){
-	                		if(batalla->getTablero()->getCasilla(x,y,z)->getTipoDeCasilla() == TIERRA){
-	                			xi = x*20;
-	                			xf = (x*20)+20;
-	                			yi = y*20;
-	                			yf = (y*20)+20;
-	                			pintarCuadrado(yi, xi, yf, xf, TIERRA);
-	                		}else if(batalla->getTablero()->getCasilla(x,y,z)->getTipoDeCasilla() == AGUA){
-	                			xi = x*20;
-	                			xf = (x*20)+20;
-	                			yi = y*20;
-	                			yf = (y*20)+20;
-	                			pintarCuadrado(yi, xi, yf, xf, AGUA);
-	                		}
+	for (int z = 1; z <= batalla->getDimensionDelTablero(); z++){
+	        for (int x = 1; x <= batalla->getDimensionDelTablero(); x++){
+                    for (int y = 1; y <= batalla->getDimensionDelTablero(); y++){
+                        TipoDeCasillero tipoCasillero = batalla->getTablero()->getCasilla(x,y,z)->getTipoDeCasilla();
+						xi = x*20;
+						xf = (x*20)+20;
+						yi = y*20;
+						yf = (y*20)+20;
+						pintarCuadrado(yi, xi, yf, xf, z, tipoCasillero);
 	            	}
 	    	}
 	}
@@ -183,7 +198,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador){
 			if(batalla->getTablero()->getCasilla(coordX, coordY, 1)->getTipoDeCasilla() == TIERRA){
 
 				jugador->nuevoSoldado(coordX, coordY);
-				this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10));
+				this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10), 1);
 			}
 			else{
 				cout << "Tu soldado se ahogó" << endl;
@@ -238,7 +253,7 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 	}else{
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ, filaOColumna);
 		if(carta->getTipoDeCarta() == BARCOS) {
-			this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10));
+			this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10), 1);
 		}
 	}
 	cout << "Ejecutado carta " << carta->getDescripcion()<<endl;
@@ -279,11 +294,11 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux, Ju
 		cout << "Disparando..." <<endl;
 		if (batalla->soldadosCoinciden(coordX, coordY)){
 			cout << "Fuego amigo!" << endl;
-		}else if(batalla->eliminarEnemigo(coordX, coordY)){
-				batalla->realizarDisparo(coordX, coordY, coordZ);
-				cout << "Mataste a un soldado enemigo" << endl;
-				this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10));
-			}
+		} else if(batalla->eliminarEnemigo(coordX, coordY)){
+			batalla->realizarDisparo(coordX, coordY, coordZ);
+			cout << "Mataste a un soldado enemigo" << endl;
+			this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10), coordZ);
+		}
 		cout << "Ingrese coordenadas del 2do disparo adicional: "<<endl;
 		cout << "fila: ";
 		cin >> coordX;
@@ -297,7 +312,7 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux, Ju
 		}else if(batalla->eliminarEnemigo(coordX, coordY)){
 				batalla->realizarDisparo(coordX, coordY, coordZ);
 				cout << "Mataste a un soldado enemigo" << endl;
-				this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10));
+				this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10), coordZ);
 			}
 	}
 }
@@ -363,15 +378,15 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador){
 		int xf = (coordX * 20) + 20;
 		int yi = coordY * 20;
 		int yf = (coordY * 20) + 20;
-		this->pintarCuadrado(yi, xi, yf, xf, tipo);
+		this->pintarCuadrado(yi, xi, yf, xf, 1, tipo);
 
 		Ficha* soldado = batalla->moverSoldado(movimiento, coordX, coordY, jugador);
 
 		if( soldado != NULL ) {
 			int x = soldado->getPosicionX();
 			int y = soldado->getPosicionY();
-			this->pintarCirculo(((x*20)-10), ((y*20)-10));
-			this->pintarCirculo(((x*20)-10), ((y*20)-10));
+			this->pintarCirculo(((x*20)-10), ((y*20)-10), 1);
+			this->pintarCirculo(((x*20)-10), ((y*20)-10), 1);
 		}
 
 		pintarLineas((batalla->getDimensionDelTablero()+20));
@@ -402,14 +417,14 @@ void Pantalla::solicitarDisparo(BatallaCampal* batalla){
 		cout << "Perdiste el turno..." << endl;
 	}
 	else{
-		if (batalla -> eliminarEnemigo(coordX, coordY)){
+		if (batalla->eliminarEnemigo(coordX, coordY)){
 			cout << "Mataste a un soldado enemigo" << endl;
-			batalla -> realizarDisparo(coordX, coordY, coordZ);
-			this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10));
+			batalla->realizarDisparo(coordX, coordY, coordZ);
+			this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10), coordZ);
 		}else{
-			batalla -> realizarDisparo(coordX, coordY, coordZ);
+			batalla->realizarDisparo(coordX, coordY, coordZ);
 			cout << "Disparo fallido!" << endl;
-			this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10));
+			this->pintarCirculoRojo(((coordX*20)-10), ((coordY*20)-10), coordZ);
 
 		}
 

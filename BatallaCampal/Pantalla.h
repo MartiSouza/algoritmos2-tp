@@ -12,7 +12,7 @@ class Pantalla{
 		int cantidadSoldados;
 		int dimensionDelTablero;
 		int mapaOpcion;
-		BMP Window;
+		Lista<BMP*>* Window;
 
 	public:
 
@@ -86,7 +86,7 @@ class Pantalla{
 		 * PRE: valores mayores a 0 y menores a la dimension del tablero, el tipo de casillero.
 		 * POS: genera un cuadrado en la imagen BitMap
 		 */
-		void pintarCuadrado(int xi,int yi, int xf, int yf, TipoDeCasillero tipo);
+		void pintarCuadrado(int xi,int yi, int xf, int yf, int z, TipoDeCasillero tipo);
 		/*
 		 * PRE: tamanio valor mayor a 0
 		 * POS: genera Lineas en la imagen BitMap
@@ -96,12 +96,12 @@ class Pantalla{
 		 * PRE: valores mayores a 0 y menores a la dimension del tablero
 		 * POS: genera un circulo en la imagen BitMap
 		 */
-		void pintarCirculo(int centerX, int centerY);
+		void pintarCirculo(int centerX, int centerY, int z);
 		/*
 		 * PRE: valores mayores a 0 y menores a la dimension del tablero
 		 * POS: genera un circulo rojo en la imagen BitMap
 		 */
-		void pintarCirculoRojo(int centerX, int centerY);
+		void pintarCirculoRojo(int centerX, int centerY, int z);
 		/*
 		 * PRE:
 		 * POS: crea la imagen del BitMap
