@@ -271,10 +271,8 @@ void BatallaCampal::dispararMisil(int fila, int columna, int altura){
 	for (int i = -1; i <= 1; i++){
 		for (int j = -1; j <= 1; j++){
 			for (int k = -1; k <= 1; k++){
-				if((fila+i) > 0 && (columna+j) > 0 && (altura+k) > 0 && (fila+i) <= this->getDimensionDelTablero() && (columna+j) <= this->getDimensionDelTablero() && (altura+k) <= this->getDimensionDelTablero()){
 					this->tablero->getCasilla(fila+i, columna+j, altura+k)->setEstado(INACTIVO);
 					this->realizarDisparo(fila+i,columna+j,altura+k);
-				}
 			}
 		}
 	}
@@ -284,7 +282,6 @@ int BatallaCampal::usarRadar(int fila, int columna, int altura){
 	if(!esCoordenadaValida(fila,columna,altura)){
 		throw "Las magnitudes elegidas para usar el radar no son validas.";
 	}
-
 	int contador = 0;
 	for (int i = -2; i <= 2; i++){
 		for (int j = -2; j <= 2; j++){
@@ -325,10 +322,8 @@ void BatallaCampal::dispararSuperMisil(int filaOcolumna, char tipoDeCasilla){
 void BatallaCampal::iniciarEscenarioUno(){
 	for(int x = 1; x<=this->getDimensionDelTablero(); x++){
 		for(int y = 1; y<=this->getDimensionDelTablero(); y++){
-			for(int z = 1; z<=this->getDimensionDelTablero(); z++){
-				
+			for(int z = 1; z<=this->getDimensionDelTablero(); z++){				
 				if(z == 1){
-
 					if(x < y){	
 						this->tablero->getCasilla(x,y,z)->setTipoDeCasillero(TIERRA);
 					}
@@ -432,9 +427,7 @@ void BatallaCampal::usarCarta(Jugador* jugador, int numero, int x, int y, int z,
 		}
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta()  == MISIL){
-		if (esCoordenadaValida(x, y, z) && esCoordenadaValida(x+1, y+1, z+1) && esCoordenadaValida(x-1, y-1, z-1)){
-			dispararMisil(x, y, z);
-		}	
+		dispararMisil(x, y, z);
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta() == SUPER){
 		if (filaOColumna == 'C'){
