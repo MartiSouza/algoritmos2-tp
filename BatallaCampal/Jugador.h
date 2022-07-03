@@ -16,6 +16,9 @@ private:
 	unsigned int id;
 	unsigned int cantidadSoldados;
 	unsigned int cantidadHerramientas;
+	int color[3];
+	int claros[3] = {0, 102, 51};
+	int oscuros[3] = {0, 255, 127};
 	Lista<Ficha*>* herramientas;
 	Lista<Ficha*>* soldados;
 	Lista<Carta*>* cartas;
@@ -32,6 +35,21 @@ public:
 	*Post: destruye la instancia de jugador.
 	*/
 	virtual ~Jugador();
+	/*
+	*Pre: -
+	*Post: devuelve una opcion para el color.
+	*/
+	int getColorR();
+	/*
+	*Pre: -
+	*Post: devuelve una opcion para el color.
+	*/
+	int getColorG();
+	/*
+	*Pre: -
+	*Post: devuelve una opcion para el color.
+	*/
+	int getColorB();
 	/*
 	*Pre: -
 	*Post: devuelve la cantidad de herramientas.
