@@ -40,7 +40,8 @@ class BatallaCampal{
 		int cantidadJugadores;
 		unsigned int cantidadSoldados;
 		estadoDelJuego estadoDelJuegoActual;
-
+		bool eliminadoPorMina;
+	
 	public:
 
 		/*
@@ -175,6 +176,11 @@ class BatallaCampal{
 		 * Post: Si la casilla a donde se mueve es válida, mueve al soldado a esa posicion
 		 */
 		void realizarMovimiento(char movimiento, int fila, int columna, Ficha* soldado);
+		/*
+		 * Pre: 
+		 * Post: devuelve true si el soldado fue eliminado por una mina al moverse
+		 */
+		bool seEliminoPorMina();
 
 };
 
