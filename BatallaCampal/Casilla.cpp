@@ -31,7 +31,7 @@ void Casilla::setTipoDeCasillero(TipoDeCasillero tipo){
 }
 
 void Casilla::setEstado(EstadoDelCasillero estadoCasilla){
-    if(estadoCasilla == VACIO || estadoCasilla == LLENO || estadoCasilla == INACTIVO){
+    if(estadoCasilla == VACIO || estadoCasilla == LLENO || estadoCasilla == INACTIVO || estadoCasilla == MINADO){
         this->estadoCasilla = estadoCasilla;
         if(estadoCasilla == VACIO){
         	this->estadoActual = VACIA;
@@ -39,12 +39,15 @@ void Casilla::setEstado(EstadoDelCasillero estadoCasilla){
         	this->estadoActual = LLENA;
         }else if(estadoCasilla == INACTIVO){
         	this->estadoActual = INACTIVA;
-        }
+        }else if(estadoCasilla == MINADO){
+        	this->estadoActual = MINADO;
+		}
     }
     else{
-        throw "El contenido es invalido, debe ser: VACIO, FULL, INACTIVO";
+        throw "El contenido es invalido, debe ser: VACIO, FULL, INACTIVO o MINADO";
     }
 }
+
 
 EstadoDelCasillero Casilla::getEstado(){
 	return this->estadoCasilla;
