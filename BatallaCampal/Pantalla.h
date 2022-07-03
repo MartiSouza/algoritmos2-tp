@@ -96,7 +96,7 @@ class Pantalla{
 		 * PRE: valores mayores a 0 y menores a la dimension del tablero
 		 * POS: genera un circulo en la imagen BitMap
 		 */
-		void pintarCirculo(int centerX, int centerY);
+		void pintarCirculo(int centerX, int centerY, Jugador* jugador);
 		/*
 		 * PRE: valores mayores a 0 y menores a la dimension del tablero
 		 * POS: genera una equis roja en la imagen BitMap
