@@ -431,9 +431,9 @@ void BatallaCampal::usarCarta(Jugador* jugador, int numero, int x, int y, int z,
 		if (this->tablero->getCasilla(x, y, z)->getTipoDeCasilla() != TIERRA){
 			throw "Mina debe estar en la tierra";
 		}
-		else if (esCoordenadaValida(x, y, z)){
+		else if (esCoordenadaValida(x, y, 1)){
 			jugador->nuevaHerramienta(MINA, x, y, 1);
-			this->tablero->getCasilla(x, y, z)->setEstado(LLENO);
+			this->tablero->getCasilla(x, y, 1)->setEstado(MINADO);
 		}
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta()  == MISIL){
@@ -495,4 +495,8 @@ BatallaCampal::~BatallaCampal(){
 	if(tablero){
 		delete tablero;
 	}
+}
+
+bool BatallaCampal::seEliminoPorMina(){
+	return this->eliminadoPorMina;
 }
