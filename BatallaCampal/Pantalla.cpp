@@ -376,6 +376,10 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador){
 
 		Ficha* soldado = batalla->moverSoldado(movimiento, coordX, coordY, jugador);
 
+		if (batalla->seEliminoPorMina()){
+			cout<< "El soldado que moviste piso una mina!"<<endl;
+		}
+		
 		if( soldado != NULL ) {
 			int x = soldado->getPosicionX();
 			int y = soldado->getPosicionY();
