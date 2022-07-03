@@ -237,6 +237,9 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 		}
 	}else{
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ, filaOColumna);
+		if(carta->getTipoDeCarta() == BARCOS) {
+			this->pintarCirculo(((coordX*20)-10), ((coordY*20)-10));
+		}
 	}
 	cout << "Ejecutado carta " << carta->getDescripcion()<<endl;
 	jugador->eliminarCarta(numeroCarta);
@@ -255,7 +258,7 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux, Ju
 
 	if (herramientaAux->getTipo() == BARCO){
 		cout << "Usando barco "<<endl;
-		cout << "Ingrese coordenadas : "<<endl;
+		cout << "Ingrese coordenadas de disparo: "<<endl;
 		cout << "Fila: ";
 		cin >> coordX;
 		cout << "Columna: ";
