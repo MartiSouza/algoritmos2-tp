@@ -174,9 +174,6 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador){
 	int coordY;
 
 	for( int j = 1; j <= batalla->getCantidadDeSoldados(); j++){
-		cout << jugador->getColorR();
-		cout << jugador->getColorG();
-		cout << jugador->getColorB();
 		cout << "Jugador: " << jugador->getId() << ", elija posiciones para el soldado [" << j << "]: " << endl;
 		cout << "fila: ";
 		cin >> coordX;
