@@ -46,14 +46,14 @@ void Pantalla::creacionImagen(){
 	this->Window.WriteToFile("tablero.bmp");
 }
 
-void Pantalla::pintarCirculo(int centerX, int centerY){
+void Pantalla::pintarCirculo(int centerX, int centerY, Jugador* jugador){
 	if(centerX < 1 || centerY < 1){
 		throw "Coordenadas inválidas";
 	}
 	RGBApixel FontColor;
-	FontColor.Red = 255;
-	FontColor.Green = 255;
-	FontColor.Blue = 255;
+	FontColor.Red = jugador->getColorR();
+	FontColor.Green = jugador->getColorB();
+	FontColor.Blue = jugador->getColorG();
 	DrawArc(this->Window, centerY*20 + 10, centerX*20 + 10, 5, 0, 360, FontColor);
 
 	this->Window.WriteToFile("tablero.bmp");
@@ -174,6 +174,9 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador){
 	int coordY;
 
 	for( int j = 1; j <= batalla->getCantidadDeSoldados(); j++){
+		cout << jugador->getColorR();
+		cout << jugador->getColorG();
+		cout << jugador->getColorB();
 		cout << "Jugador: " << jugador->getId() << ", elija posiciones para el soldado [" << j << "]: " << endl;
 		cout << "fila: ";
 		cin >> coordX;
@@ -183,7 +186,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador){
 			if(batalla->getTablero()->getCasilla(coordX, coordY, 1)->getTipoDeCasilla() == TIERRA){
 
 				jugador->nuevoSoldado(coordX, coordY);
-				this->pintarCirculo(coordX, coordY);
+				this->pintarCirculo(coordX, coordY, jugador);
 			}
 			else{
 				cout << "Tu soldado se ahogó" << endl;
@@ -233,8 +236,8 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 	cin >> coordZ;
 	if (carta->getTipoDeCarta() == RADAR){
 		cout << "En los alrededores se encuentran "<< batalla->usarRadar(coordX, coordY, coordZ) << " cantidad de fichas"<<endl;
-	}else if (carta->getTipoDeCarta() == BARCO){
-		this->pintarCirculo(coordX, coordY);
+	}else if (carta->getTipoDeCarta() == BARCOS){
+		this->pintarCirculo(coordX, coordY, jugador);
 	}
 	else if (carta->getTipoDeCarta() == MISIL && coordZ < 3){
 		for (int i = -1; i <= 1; i++){
@@ -367,7 +370,7 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador){
 		if( soldado != NULL ) {
 			int x = soldado->getPosicionX();
 			int y = soldado->getPosicionY();
-			this->pintarCirculo(x, y);
+			this->pintarCirculo(x, y, jugador);
 		}
 
 		pintarLineas((batalla->getDimensionDelTablero()+20));
