@@ -255,6 +255,11 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna, Jugad
 					this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
 					this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
 			}
+			if(this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->getEstado( ) == MINADO){
+				this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
+				this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
+				this->eliminadoPorMina = true;
+			}
 
 			return soldadoAux;
 		}else{
