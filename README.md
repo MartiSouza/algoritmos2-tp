@@ -1,4 +1,6 @@
 # algoritmos2-tp
 
-Errores: Las cartas no están del todo bien implementadas. AUN HAY ERRORES.
-         En el enunciado dice que el armamento se puede mover.
+Agregados:
+
+-Se crean multiples BITMAP para cada valor Z
+-Se muestra el barco y el avion en el BITMAP
