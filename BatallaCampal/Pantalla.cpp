@@ -396,6 +396,11 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador){
 			int y = soldado->getPosicionY();
 			this->pintarCirculo(((x*20)-10), ((y*20)-10), 1);
 			this->pintarCirculo(((x*20)-10), ((y*20)-10), 1);
+						
+			if (batalla->seEliminoPorMina()){
+				cout<< "El soldado que moviste piso una mina!"<<endl;
+				this->pintarEquis(((x*20)-10), ((y*20)-10));
+			}
 		}
 
 		pintarLineas((batalla->getDimensionDelTablero()+20));
