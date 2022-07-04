@@ -4,6 +4,7 @@ BatallaCampal::BatallaCampal(unsigned int cantidadJugadores, unsigned int cantid
 
 	this->estadoDelJuegoActual = JUGANDO;
 	this->turno = 0;
+	this->eliminadoPorMina = false;
 
 	if(cantidadJugadores < MIN_JUGADORES || cantidadJugadores > MAX_JUGADORES){
 		throw "La cantidad de jugadores elegida es invalida.";
@@ -251,10 +252,10 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna, Jugad
 			realizarMovimiento(movimiento, fila, columna, soldadoAux);
 
 			if(this->soldadosCoincidenDistinto(soldadoAux->getPosicionX(), soldadoAux->getPosicionY())){
-
-					this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
-					this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
+				this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
+				this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
 			}
+			
 			if(this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->getEstado( ) == MINADO){
 				this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
 				this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
@@ -262,8 +263,6 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna, Jugad
 			}
 
 			return soldadoAux;
-		}else{
-			throw "Soldado no encontrado";
 		}
 	}
 	return soldadoAux;
@@ -434,6 +433,7 @@ void BatallaCampal::usarCarta(Jugador* jugador, int numero, int x, int y, int z,
 		else if (esCoordenadaValida(x, y, 1)){
 			jugador->nuevaHerramienta(MINA, x, y, 1);
 			this->tablero->getCasilla(x, y, 1)->setEstado(MINADO);
+			
 		}
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta()  == MISIL){
