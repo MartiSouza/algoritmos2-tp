@@ -33,7 +33,7 @@ enum estadoDelJuego{
 class BatallaCampal{
 	
 	private:
-		Lista <Jugador*>* jugadores;
+		Lista <Jugador*> *jugadores;
 		Tablero* tablero;
 		unsigned int turno;
 		int dimensionTablero;
@@ -41,7 +41,7 @@ class BatallaCampal{
 		unsigned int cantidadSoldados;
 		estadoDelJuego estadoDelJuegoActual;
 		bool eliminadoPorMina;
-	
+
 	public:
 
 		/*
@@ -148,7 +148,7 @@ class BatallaCampal{
 		bool esCoordenadaValida(int x, int y);
 		/*
 		 * Pre: Necesita las coordenadas de la casilla
-		 * Post: Devuelve true si se eliminÃ³ un soldado
+		 * Post: Devuelve true si se eliminÃƒÂ³ un soldado
 		 */
 		bool eliminarEnemigo(int x, int y);
 		/*
@@ -173,7 +173,7 @@ class BatallaCampal{
 		void cargarMapa(int opcion);
 		/*
 		 * Pre: recibe el movimiento solicitado al usuario, la fila y columna del soldado elegido por el usuario y el soldado a mover
-		 * Post: Si la casilla a donde se mueve es válida, mueve al soldado a esa posicion
+		 * Post: Si la casilla a donde se mueve es vÃ¡lida, mueve al soldado a esa posicion
 		 */
 		void realizarMovimiento(char movimiento, int fila, int columna, Ficha* soldado);
 		/*
