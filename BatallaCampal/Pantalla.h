@@ -18,7 +18,7 @@ class Pantalla{
 
 		/*
 		 * PRE:
-		 * POS: Establece las configuraciones iniciales de una partida, donde la cantidad de jugadores será 2, la cantidad de soldados por jugador 3,
+		 * POS: Establece las configuraciones iniciales de una partida, donde la cantidad de jugadores serÃ¡ 2, la cantidad de soldados por jugador 3,
 		 * la dimension del tablero 20. Genera un numero aleatorio entre 1 y 3.
 		 */
 		Pantalla();
@@ -99,9 +99,9 @@ class Pantalla{
 		void pintarCirculo(int centerX, int centerY);
 		/*
 		 * PRE: valores mayores a 0 y menores a la dimension del tablero
-		 * POS: genera un circulo rojo en la imagen BitMap
+		 * POS: genera una equis roja en la imagen BitMap
 		 */
-		void pintarCirculoRojo(int centerX, int centerY);
+		void pintarEquis(int x, int y);
 		/*
 		 * PRE:
 		 * POS: crea la imagen del BitMap
@@ -109,8 +109,3 @@ class Pantalla{
 		void creacionImagen();
 
 };
-
-
-
-
-#endif /* SRC_PANTALLA_H_ */
