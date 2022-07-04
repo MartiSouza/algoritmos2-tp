@@ -4,6 +4,7 @@ BatallaCampal::BatallaCampal(unsigned int cantidadJugadores, unsigned int cantid
 
 	this->estadoDelJuegoActual = JUGANDO;
 	this->turno = 0;
+	this->eliminadoPorMina = false;
 
 	if(cantidadJugadores < MIN_JUGADORES || cantidadJugadores > MAX_JUGADORES){
 		throw "La cantidad de jugadores elegida es invalida.";
@@ -255,6 +256,12 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna, Jugad
 					this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
 					this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
 			}
+						
+			if(this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->getEstado( ) == MINADO){
+				this->tablero->getCasilla(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
+				this->realizarDisparo(soldadoAux->getPosicionX(), soldadoAux->getPosicionY(), 1);
+				this->eliminadoPorMina = true;
+			}
 
 			return soldadoAux;
 		}else{
@@ -426,9 +433,9 @@ void BatallaCampal::usarCarta(Jugador* jugador, int numero, int x, int y, int z,
 		if (this->tablero->getCasilla(x, y, z)->getTipoDeCasilla() != TIERRA){
 			throw "Mina debe estar en la tierra";
 		}
-		else if (esCoordenadaValida(x, y, z)){
+		else if (esCoordenadaValida(x, y, 1)){
 			jugador->nuevaHerramienta(MINA, x, y, 1);
-			this->tablero->getCasilla(x, y, z)->setEstado(LLENO);
+			this->tablero->getCasilla(x, y, 1)->setEstado(MINADO);
 		}
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta()  == MISIL){
@@ -437,10 +444,14 @@ void BatallaCampal::usarCarta(Jugador* jugador, int numero, int x, int y, int z,
 		}	
 	}
 	if (jugador->getCarta()->get(numero)->getTipoDeCarta() == SUPER){
+		if((filaOColumna != 'C') && (filaOColumna != 'F')){
+			throw "se ingreso una letra distinta de C o F";
+		}
+
 		if (filaOColumna == 'C'){
 			dispararSuperMisil(y, filaOColumna);
 		}else if (filaOColumna == 'F'){
-			dispararSuperMisil(x, filaOColumna);
+				dispararSuperMisil(x, filaOColumna);
 		}
 	}
 }
@@ -485,4 +496,8 @@ BatallaCampal::~BatallaCampal(){
 	if(tablero){
 		delete tablero;
 	}
+}
+
+bool BatallaCampal::seEliminoPorMina(){
+	return this->eliminadoPorMina;
 }
