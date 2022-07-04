@@ -39,10 +39,12 @@ void Casilla::setEstado(EstadoDelCasillero estadoCasilla){
         	this->estadoActual = LLENA;
         }else if(estadoCasilla == INACTIVO){
         	this->estadoActual = INACTIVA;
-        }
+        }else if(estadoCasilla == MINADO){
+		this->estadoActual == MINADO;
+	}
     }
     else{
-        throw "El contenido es invalido, debe ser: VACIO, FULL, INACTIVO";
+        throw "El contenido es invalido, debe ser: VACIO, FULL, INACTIVO o MINADO";
     }
 }
 
