@@ -37,11 +37,6 @@ public:
 	virtual ~Jugador();
 	/*
 	 *Pre: -
-	 *Post: devuelve la cantidad de herramientas.
-	 */	
-	unsigned int getCantidadDeHerramientas();
-	/*
-	 *Pre: -
 	 *Post: devuelve el numero rojo del RGB.
 	 */
 	int getColorR();
@@ -55,6 +50,11 @@ public:
 	 *Post: devuelve el numero azul del RGB.
 	 */
 	int getColorB();
+	/*
+	 *Pre: -
+	 *Post: devuelve la cantidad de herramientas.
+	 */	
+	unsigned int getCantidadDeHerramientas();
 	/*
 	 *Pre: -
 	 *Post: devuelve la cantidad de soldados.
