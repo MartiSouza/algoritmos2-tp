@@ -64,7 +64,7 @@ void Pantalla::creacionImagen() {
 	}
 }
 
-void Pantalla::pintarCirculo(int centerX, int centerY, int z) {
+void Pantalla::pintarCirculo(int centerX, int centerY, int z, Jugador* jugador) {
 	if (centerX < 1 || centerY < 1) {
 		throw "Coordenadas inválidas";
 	}
@@ -215,7 +215,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador) {
 					== TIERRA) {
 
 				jugador->nuevoSoldado(coordX, coordY);
-				this->pintarCirculo(coordX,coordY, 1);
+				this->pintarCirculo(coordX,coordY, 1, jugador);
 			} else {
 				cout << "Tu soldado se ahogó" << endl;
 			}
@@ -281,7 +281,7 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ,
 				filaOColumna);
 		if (carta->getTipoDeCarta() == BARCOS || carta->getTipoDeCarta() == AVIONES) {
-			this->pintarCirculo(coordX, coordY, coordZ);
+			this->pintarCirculo(coordX, coordY, coordZ, jugador);
 		}
 	}
 	cout << "Ejecutado carta " << carta->getDescripcion() << endl;
@@ -406,12 +406,11 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 		if (soldado != NULL) {
 			int x = soldado->getPosicionX();
 			int y = soldado->getPosicionY();
-			this->pintarCirculo(x, y, 1);
-			this->pintarCirculo(x, y, 1);
+			this->pintarCirculo(x, y, 1, jugador);
 
 			if (batalla->seEliminoPorMina()) {
 				cout << "El soldado que moviste piso una mina!" << endl;
-				this->pintarEquis(x, y 1);
+				this->pintarEquis(x, y, 1);
 			}
 		}
 
