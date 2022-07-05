@@ -17,6 +17,22 @@ Jugador::Jugador(unsigned int id, int cantidadSoldados) {
 	this->soldados = new Lista<Ficha*>();
 	this->cartas = new Lista<Carta*>();
 	this->estado = EN_BATALLA;
+	this->color[0] = 0;
+	this->color[1] = 0;
+	this->color[2] = 0;
+	int randomAux = rand()%2;
+		if (randomAux == 0){
+			this->color[0] = oscuros[rand()%3];
+			this->color[1] = oscuros[rand()%3];
+			this->color[2] = oscuros[rand()%3];
+		}else if (randomAux == 1){
+			this->color[0] = claros[rand()%3];
+			this->color[1] = claros[rand()%3];
+			this->color[2] = claros[rand()%3];
+		}
+	if (color [0] == 0 && color [1] == 0 && color [2] == 255){
+		color[2] = 0;
+	}
 }
 
 unsigned int Jugador::getCantidadDeHerramientas() {
