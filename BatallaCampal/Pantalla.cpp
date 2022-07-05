@@ -274,20 +274,13 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	}
 
 	if (carta->getTipoDeCarta() == RADAR) {
-		if (batalla->esCoordenadaValida(coordX, coordY, coordZ)
-				&& batalla->esCoordenadaValida(coordX + 2, coordY + 2,
-						coordZ + 2)
-				&& batalla->esCoordenadaValida(coordX - 2, coordY - 2,
-						coordZ - 2)) {
-			cout << "En los alrededores se encuentran "
-					<< batalla->usarRadar(coordX, coordY, coordZ)
-					<< " cantidad de fichas" << endl;
+		cout << "En los alrededores se encuentran " << batalla->usarRadar(coordX, coordY, coordZ)
+			<< " cantidad de fichas" << endl;
 		}
 	} else {
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ,
 				filaOColumna);
-		if (carta->getTipoDeCarta() == BARCOS
-				|| carta->getTipoDeCarta() == AVIONES) {
+		if (carta->getTipoDeCarta() == BARCOS || carta->getTipoDeCarta() == AVIONES) {
 			this->pintarCirculo(coordX, coordY, coordZ);
 		}
 	}
