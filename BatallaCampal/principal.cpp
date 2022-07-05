@@ -6,19 +6,26 @@
 
 using namespace std;
 
-int main(){
+int main() {
 
-	try{
-		cout << "--BATALLA CAMPAL--"<<endl;
+	try {
+		cout << "--BATALLA CAMPAL--" << endl;
 
 		srand(time(NULL));
 		bool encontrado;
 		Pantalla* pantalla = new Pantalla();
 		pantalla->nuevaPartida();
-		BatallaCampal* batalla = new BatallaCampal(pantalla->getCantidadJugadores(), pantalla->getCantidadSoldados(), pantalla->getDimensionDelTablero());
+		BatallaCampal* batalla = new BatallaCampal(
+				pantalla->getCantidadJugadores(),
+				pantalla->getCantidadSoldados(),
+				pantalla->getDimensionDelTablero());
 
-		cout << "Se estableció la siguiente configuracion: (" << batalla->getCantidadDeJugadores() <<")jugadores | ("
-			 << batalla->getCantidadDeSoldados()<<")soldados por jugador | (" << batalla->getDimensionDelTablero() << ")dimension del tablero" << endl;
+		cout << "Se estableció la siguiente configuracion: ("
+				<< batalla->getCantidadDeJugadores() << ")jugadores | ("
+				<< batalla->getCantidadDeSoldados()
+				<< ")soldados por jugador | ("
+				<< batalla->getDimensionDelTablero() << ")dimension del tablero"
+				<< endl;
 
 		batalla->cargarMapa(pantalla->mapaElegido());
 		cout << "Cargando mapa..." << endl;
@@ -26,23 +33,25 @@ int main(){
 		cout << "Mapa cargado" << endl;
 
 		batalla->getJugador()->reiniciarCursor();
-		while(batalla->getJugador()->avanzarCursor()){
+		while (batalla->getJugador()->avanzarCursor()) {
 			Jugador* jugadorAux = batalla->getJugador()->getCursor();
 			pantalla->solicitarSoldados(batalla, jugadorAux);
 		}
 		cout << "--COMIENZA EL JUEGO--" << endl;
 
-		while( batalla->getEstadoDelJuego() == JUGANDO){
+		while (batalla->getEstadoDelJuego() == JUGANDO) {
 			cout << "---SIGUIENTE TURNO---" << endl;
 			encontrado = false;
 			batalla->siguienteTurno();
 			batalla->getJugador()->reiniciarCursor();
-			while(batalla->getJugador()->avanzarCursor() && (!encontrado)){
-				if(batalla->getJugador()->getCursor()->getId() == batalla->getTurno()){
+			while (batalla->getJugador()->avanzarCursor() && (!encontrado)) {
+				if (batalla->getJugador()->getCursor()->getId()
+						== batalla->getTurno()) {
 					encontrado = true;
 					Jugador* jugadorAux = batalla->getJugador()->getCursor();
 
-					cout << "Turno del jugador: " << jugadorAux->getId() << endl;
+					cout << "Turno del jugador: " << jugadorAux->getId()
+							<< endl;
 					pantalla->solicitarMovimiento(batalla, jugadorAux);
 					pantalla->solicitarDisparo(batalla);
 					pantalla->solicitarCarta(batalla, jugadorAux);
@@ -56,7 +65,7 @@ int main(){
 
 		return 0;
 
-	}catch(const char* X){
-		cout << "ERROR: " << X <<endl;
+	} catch (const char* X) {
+		cout << "ERROR: " << X << endl;
 	}
 }

@@ -3,39 +3,34 @@
 #include <string>
 #include "Ficha.h"
 
-class Carta{
+class Carta {
 
+private:
 
-	private:
+	char tipoDeCarta;
+	std::string descripcion;
 
-		char tipoDeCarta;
-		std::string descripcion;
+public:
 
+	/*
+	 * Pre: Necesita un numero para el tipo de carta
+	 * Pos: Crea un tipo de carta
+	 */
+	Carta(int aleatorio);
 
-	public:
-
-		/*
-		* Pre: Necesita un numero para el tipo de carta
-		* Pos: Crea un tipo de carta
-		*/
-		Carta(int aleatorio);
-
-		/*
-		 * Pos: Devuelve el tipo de carta
-		 */
-		char getTipoDeCarta();
-		/*
-		* Pos: Devuelve la descripcion de la carta
-		*/
-		std::string getDescripcion();
-		/*
-		 * Pos: Destruye la carta
-		 */
-		~Carta();
-
+	/*
+	 * Pos: Devuelve el tipo de carta
+	 */
+	char getTipoDeCarta();
+	/*
+	 * Pos: Devuelve la descripcion de la carta
+	 */
+	std::string getDescripcion();
+	/*
+	 * Pos: Destruye la carta
+	 */
+	~Carta();
 
 };
-
-
 
 #endif
