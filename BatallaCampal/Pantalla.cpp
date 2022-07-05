@@ -320,7 +320,9 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 		batalla->dispararMisil(coordX, coordY, coordZ);
 		for (int i = -1; i <= 1; i++){
 			for (int j = -1; j <= 1; j++){
-				this->pintarEquis(coordX + i, coordY + j, coordZ);
+				for (int k = -1; k <= 1; k++){
+					this->pintarEquis(coordX + i, coordY + j, coordZ + k);
+				}
 			}
 		}
 	}
@@ -339,7 +341,8 @@ void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
 	}
 
 	char opcionUsuarioC;
-
+	int contador = 0;
+	
 	cout << "Generando nueva carta..." << endl;
 	if (jugador->getCantidadDeCartas() == 5) {
 		cout << "No puedes obtener mas cartas" << endl;
@@ -353,9 +356,12 @@ void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
 		this->usarUnaCarta(batalla, jugador);
 	}
 	jugador->getHerramienta()->reiniciarCursor();
-	while (jugador->getHerramienta()->avanzarCursor()) {
-		Ficha* herramientaAux = jugador->getHerramienta()->getCursor();
-		usarHerramienta(batalla, herramientaAux, jugador);
+	while(jugador->getHerramienta()->avanzarCursor()){
+		if (jugador->getCantidadDeHerramientas() != contador){
+			Ficha* herramientaAux = jugador->getHerramienta()->getCursor();
+			usarHerramienta(batalla, herramientaAux, jugador);
+			contador++;
+			}
 	}
 }
 
