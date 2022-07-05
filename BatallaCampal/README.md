@@ -7,3 +7,5 @@ tambien hice una verificacion del pedido de columna o fila en "super", que lanza
 y el mensaje por pantalla de la mina
 
 agregé la validacion de que a la hora de mover un soldado, se elija una posicion valida (que muevas un soldado que exista basicamente)
+
+mensaje de cuando se pisan 2 soldados y marcarlo en el bitmap
