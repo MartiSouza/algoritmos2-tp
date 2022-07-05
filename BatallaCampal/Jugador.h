@@ -20,6 +20,9 @@ private:
 	Lista<Ficha*>* soldados;
 	Lista<Carta*>* cartas;
 	EstadoJugador estado;
+	int color[3];
+	int claros[3] = {0, 102, 51};
+	int oscuros[3] = {0, 255, 127};
 
 public:
 	/*
@@ -34,8 +37,23 @@ public:
 	virtual ~Jugador();
 	/*
 	 *Pre: -
-	 *Post: devuelve la cantidad de herramientas.
+	 *Post: devuelve el numero rojo del RGB.
 	 */
+	int getColorR();
+	/*
+	 *Pre: -
+	 *Post: devuelve el numero verde del RGB.
+	 */
+	int getColorG();
+	/*
+	 *Pre: -
+	 *Post: devuelve el numero azul del RGB.
+	 */
+	int getColorB();
+	/*
+	 *Pre: -
+	 *Post: devuelve la cantidad de herramientas.
+	 */	
 	unsigned int getCantidadDeHerramientas();
 	/*
 	 *Pre: -
