@@ -20,6 +20,9 @@ private:
 	Lista<Ficha*>* soldados;
 	Lista<Carta*>* cartas;
 	EstadoJugador estado;
+	int color[3];
+	int claros[3] = {0, 102, 51};
+	int oscuros[3] = {0, 255, 127};
 
 public:
 	/*
