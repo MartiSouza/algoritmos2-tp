@@ -59,8 +59,10 @@ void Pantalla::creacionImagen() {
 			}
 		}
 
-		this->Window->get(z)->WriteToFile(
-				("tablero" + to_string(z) + ".bmp").c_str());
+		stringstream ss;
+		ss << "tablero" << z << ".bmp";
+
+		this->Window->get(z)->WriteToFile(ss.str().c_str());
 	}
 }
 
@@ -75,8 +77,10 @@ void Pantalla::pintarCirculo(int centerX, int centerY, int z) {
 	DrawArc(*this->Window->get(z), centerY + 20, centerX + 20, 5, 0, 360,
 			FontColor);
 
-	this->Window->get(z)->WriteToFile(
-			("tablero" + to_string(z) + ".bmp").c_str());
+	stringstream ss;
+	ss << "tablero" << z << ".bmp";
+
+	this->Window->get(z)->WriteToFile(ss.str().c_str());
 }
 
 void Pantalla::pintarCirculoRojo(int centerX, int centerY, int z) {
@@ -90,8 +94,10 @@ void Pantalla::pintarCirculoRojo(int centerX, int centerY, int z) {
 	DrawArc(*this->Window->get(z), centerY + 20, centerX + 20, 5, 0, 360,
 			FontColor);
 
-	this->Window->get(z)->WriteToFile(
-			("tablero" + to_string(z) + ".bmp").c_str());
+	stringstream ss;
+	ss << "tablero" << z << ".bmp";
+
+	this->Window->get(z)->WriteToFile(ss.str().c_str());
 }
 
 void Pantalla::pintarLineas(int tamanio) {
@@ -115,8 +121,10 @@ void Pantalla::pintarLineas(int tamanio) {
 						FontColor);
 			}
 		}
-		this->Window->get(z)->WriteToFile(
-				("tablero" + to_string(z) + ".bmp").c_str());
+		stringstream ss;
+		ss << "tablero" << z << ".bmp";
+
+		this->Window->get(z)->WriteToFile(ss.str().c_str());
 	}
 }
 void Pantalla::pintarCuadrado(int xi, int yi, int xf, int yf, int z,
@@ -147,8 +155,10 @@ void Pantalla::pintarCuadrado(int xi, int yi, int xf, int yf, int z,
 		DrawLine(*this->Window->get(z), xi, yi, xf, yi, FontColor);
 		yi++;
 	}
-	this->Window->get(z)->WriteToFile(
-			("tablero" + to_string(z) + ".bmp").c_str());
+	stringstream ss;
+	ss << "tablero" << z << ".bmp";
+
+	this->Window->get(z)->WriteToFile(ss.str().c_str());
 }
 
 void Pantalla::generarMapa(BatallaCampal* batalla, Pantalla* pantalla) {
