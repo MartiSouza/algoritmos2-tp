@@ -69,29 +69,26 @@ void Pantalla::pintarCirculo(int centerX, int centerY, int z) {
 		throw "Coordenadas inválidas";
 	}
 	RGBApixel FontColor;
-	FontColor.Red = 255;
-	FontColor.Green = 255;
-	FontColor.Blue = 255;
-	DrawArc(*this->Window->get(z), centerY + 20, centerX + 20, 5, 0, 360,
-			FontColor);
-
+	FontColor.Red = jugador->getColorR();
+	FontColor.Green = jugador->getColorB();
+	FontColor.Blue = jugador->getColorG();
+	DrawArc(*this->Window->get(z), centerY*20 + 10, centerX*20 + 10, 5, 0, 360, FontColor);
 	this->Window->get(z)->WriteToFile(
 			("tablero" + to_string(z) + ".bmp").c_str());
 }
 
-void Pantalla::pintarCirculoRojo(int centerX, int centerY, int z) {
-	if (centerX < 1 || centerY < 1) {
+void Pantalla::pintarEquis(int x, int y, int z){
+	if(x < 1 || y < 1){
 		throw "Coordenadas inválidas";
 	}
 	RGBApixel FontColor;
 	FontColor.Red = 255;
 	FontColor.Green = 0;
 	FontColor.Blue = 0;
-	DrawArc(*this->Window->get(z), centerY + 20, centerX + 20, 5, 0, 360,
-			FontColor);
-
+	DrawLine(*this->Window->get(z), x*20, y*20, x*20 + 20, y*20 + 20, FontColor);
+	DrawLine(*this->Window->get(z), x*20 + 20, y*20, x*20, y*20 + 20, FontColor);
 	this->Window->get(z)->WriteToFile(
-			("tablero" + to_string(z) + ".bmp").c_str());
+		("tablero" + to_string(z) + ".bmp").c_str());
 }
 
 void Pantalla::pintarLineas(int tamanio) {
