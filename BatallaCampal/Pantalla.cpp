@@ -66,7 +66,8 @@ void Pantalla::creacionImagen() {
 	}
 }
 
-void Pantalla::pintarCirculo(int centerX, int centerY, int z, Jugador* jugador) {
+void Pantalla::pintarCirculo(int centerX, int centerY, int z,
+		Jugador* jugador) {
 	if (centerX < 1 || centerY < 1) {
 		throw "Coordenadas inválidas";
 	}
@@ -74,23 +75,26 @@ void Pantalla::pintarCirculo(int centerX, int centerY, int z, Jugador* jugador) 
 	FontColor.Red = jugador->getColorR();
 	FontColor.Green = jugador->getColorB();
 	FontColor.Blue = jugador->getColorG();
-	DrawArc(*this->Window->get(z), centerY*20 + 10, centerX*20 + 10, 5, 0, 360, FontColor);
+	DrawArc(*this->Window->get(z), centerY * 20 + 10, centerX * 20 + 10, 5, 0,
+			360, FontColor);
 	stringstream ss;
 	ss << "tablero" << z << ".bmp";
 
 	this->Window->get(z)->WriteToFile(ss.str().c_str());
 }
 
-void Pantalla::pintarEquis(int x, int y, int z){
-	if(x < 1 || y < 1){
+void Pantalla::pintarEquis(int x, int y, int z) {
+	if (x < 1 || y < 1) {
 		throw "Coordenadas inválidas";
 	}
 	RGBApixel FontColor;
 	FontColor.Red = 255;
 	FontColor.Green = 0;
 	FontColor.Blue = 0;
-	DrawLine(*this->Window->get(z), x*20, y*20, x*20 + 20, y*20 + 20, FontColor);
-	DrawLine(*this->Window->get(z), x*20 + 20, y*20, x*20, y*20 + 20, FontColor);
+	DrawLine(*this->Window->get(z), x * 20, y * 20, x * 20 + 20, y * 20 + 20,
+			FontColor);
+	DrawLine(*this->Window->get(z), x * 20 + 20, y * 20, x * 20, y * 20 + 20,
+			FontColor);
 	stringstream ss;
 	ss << "tablero" << z << ".bmp";
 
@@ -225,7 +229,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador) {
 					== TIERRA) {
 
 				jugador->nuevoSoldado(coordX, coordY);
-				this->pintarCirculo(coordX,coordY, 1, jugador);
+				this->pintarCirculo(coordX, coordY, 1, jugador);
 			} else {
 				cout << "Tu soldado se ahogó" << endl;
 			}
@@ -284,12 +288,14 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	}
 
 	if (carta->getTipoDeCarta() == RADAR) {
-		cout << "En los alrededores se encuentran " << batalla->usarRadar(coordX, coordY, coordZ)
-			<< " cantidad de fichas" << endl;
+		cout << "En los alrededores se encuentran "
+				<< batalla->usarRadar(coordX, coordY, coordZ)
+				<< " cantidad de fichas" << endl;
 	} else {
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ,
 				filaOColumna);
-		if (carta->getTipoDeCarta() == BARCOS || carta->getTipoDeCarta() == AVIONES) {
+		if (carta->getTipoDeCarta() == BARCOS
+				|| carta->getTipoDeCarta() == AVIONES) {
 			this->pintarCirculo(coordX, coordY, coordZ, jugador);
 		}
 	}
@@ -321,19 +327,19 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 		cout << "Altura: ";
 		cin >> coordZ;
 		batalla->dispararMisil(coordX, coordY, coordZ);
-		for (int i = -1; i <= 1; i++){
-			for (int j = -1; j <= 1; j++){
-				for (int k = -1; k <= 1; k++){
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				for (int k = -1; k <= 1; k++) {
 					this->pintarEquis(coordX + i, coordY + j, coordZ + k);
 				}
 			}
 		}
 	}
 	if (herramientaAux->getTipo() == AVION) {
-		cout << "Usando avion"<<endl;
-		cout << "Primer disparo adicional: "<<endl;
+		cout << "Usando avion" << endl;
+		cout << "Primer disparo adicional: " << endl;
 		solicitarDisparo(batalla);
-		cout << "Segundo disparo adicional: "<<endl;
+		cout << "Segundo disparo adicional: " << endl;
 		solicitarDisparo(batalla);
 	}
 }
@@ -345,7 +351,7 @@ void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
 
 	char opcionUsuarioC;
 	unsigned int contador = 0;
-	
+
 	cout << "Generando nueva carta..." << endl;
 	if (jugador->getCantidadDeCartas() == 5) {
 		cout << "No puedes obtener mas cartas" << endl;
@@ -359,12 +365,12 @@ void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
 		this->usarUnaCarta(batalla, jugador);
 	}
 	jugador->getHerramienta()->reiniciarCursor();
-	while(jugador->getHerramienta()->avanzarCursor()){
-		if (jugador->getCantidadDeHerramientas() != contador){
+	while (jugador->getHerramienta()->avanzarCursor()) {
+		if (jugador->getCantidadDeHerramientas() != contador) {
 			Ficha* herramientaAux = jugador->getHerramienta()->getCursor();
 			usarHerramienta(batalla, herramientaAux, jugador);
 			contador++;
-			}
+		}
 	}
 }
 
@@ -453,7 +459,7 @@ void Pantalla::solicitarDisparo(BatallaCampal* batalla) {
 	} else {
 		if (batalla->eliminarEnemigo(coordX, coordY)) {
 			cout << "Mataste a un soldado enemigo" << endl;
-		}else {
+		} else {
 			cout << "Disparo fallido!" << endl;
 		}
 		batalla->realizarDisparo(coordX, coordY, coordZ);
