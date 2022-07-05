@@ -15,7 +15,7 @@ Pantalla::Pantalla(){
 
 Pantalla::~Pantalla(){
 	if (this->Window) {
-		for (int i = 1; i < this->Window->contarElementos(); i++){
+		for (unsigned int i = 1; i < this->Window->contarElementos(); i++){
 			this->Window->remover(i);
 		}
 		delete[] this->Window;
@@ -27,9 +27,9 @@ void Pantalla::nuevaPartida(){
 	cout << "1.Partida rapida (2 jugadores)\n2.Partida personalizada (2 o mas jugadores)" <<endl;
 	cout << "Modo de juego: ";
 	cin >> this->opcionUsuario;
-	
+
 	cout<<"MAPA["<<mapaElegido()<<"] - ";
-	
+
 	if( this->opcionUsuario == 2){
 		cout << "Elige cantidad de jugadores (2 a 20): ";
 		cin >> this->cantidadJugadores;
@@ -38,8 +38,8 @@ void Pantalla::nuevaPartida(){
 		cout << "Elige el tamanio del mapa (20 a 100): ";
 		cin >> this->dimensionDelTablero;
 	}
-	
-	
+
+
 }
 
 void Pantalla::creacionImagen(){
@@ -136,8 +136,8 @@ void Pantalla::pintarCuadrado(int xi,int yi, int xf, int yf, int z, TipoDeCasill
 	else{
 		throw "Tipo inválido de casillero.";
 	}
-	
-	
+
+
 	while (yi <= yf){
 		DrawLine(*this->Window->get(z), xi, yi, xf, yi, FontColor);
 		yi++;
@@ -229,7 +229,7 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador){
 	unsigned int coordY;
 	unsigned int coordZ;
 	char filaOColumna;
-	int numeroCarta;
+	unsigned int numeroCarta;
 	jugador->getCarta()->reiniciarCursor();
 	cout << "Cartas disponibles: "<<endl;
 	int id = 1;
@@ -396,10 +396,10 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador){
 			int y = soldado->getPosicionY();
 			this->pintarCirculo(((x*20)-10), ((y*20)-10), 1);
 			this->pintarCirculo(((x*20)-10), ((y*20)-10), 1);
-						
+
 			if (batalla->seEliminoPorMina()){
 				cout<< "El soldado que moviste piso una mina!"<<endl;
-				this->pintarEquis(((x*20)-10), ((y*20)-10));
+				this->pintarCirculoRojo(((x*20)-10), ((y*20)-10), 1);
 			}
 		}
 
