@@ -35,6 +35,16 @@ Jugador::Jugador(unsigned int id, int cantidadSoldados) {
 	}
 }
 
+int Jugador::getColorR(){
+	return this->color[0];
+}
+int Jugador::getColorG(){
+	return this->color[1];
+}
+int Jugador::getColorB(){
+	return this->color[2];
+}
+
 unsigned int Jugador::getCantidadDeHerramientas() {
 	return this->herramientas->contarElementos();
 }
