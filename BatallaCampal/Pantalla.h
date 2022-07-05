@@ -97,14 +97,14 @@ public:
 	void pintarLineas(int tamanio);
 	/*
 	 * PRE: valores mayores a 0 y menores a la dimension del tablero
-	 * POS: genera un circulo en la imagen BitMap
+	 * POS: genera un circulo del color del jugador en la imagen BitMap
 	 */
-	void pintarCirculo(int centerX, int centerY, int z);
+	void pintarCirculo(int centerX, int centerY, int z, Jugador * jugador);
 	/*
 	 * PRE: valores mayores a 0 y menores a la dimension del tablero
-	 * POS: genera un circulo rojo en la imagen BitMap
+	 * POS: genera una equis roja en la imagen BitMap
 	 */
-	void pintarCirculoRojo(int centerX, int centerY, int z);
+	void pintarEquis(int centerX, int centerY, int z);
 	/*
 	 * PRE:
 	 * POS: crea la imagen del BitMap
