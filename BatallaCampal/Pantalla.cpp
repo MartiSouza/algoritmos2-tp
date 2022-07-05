@@ -260,13 +260,24 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 		cout << "Elegir Columna (C) o Fila (F): " << endl;
 		cin >> filaOColumna;
 	}
-	cout << "Ingrese coordenadas: " << endl;
-	cout << "Fila: ";
-	cin >> coordX;
-	cout << "Columna: ";
-	cin >> coordY;
-	cout << "Altura: ";
-	cin >> coordZ;
+	
+	cout << "Ingrese coordenadas: "<<endl;
+	if(carta->getTipoDeCarta() == MINAS){
+		cout << "Fila: ";
+		cin >> coordX;
+		cout << "Columna: ";
+		cin >> coordY;
+		coordZ = 1;
+	}
+	else{
+		cout << "Fila: ";
+		cin >> coordX;
+		cout << "Columna: ";
+		cin >> coordY;
+		cout << "Altura: ";
+		cin >> coordZ;
+	}
+
 	if (carta->getTipoDeCarta() == RADAR) {
 		if (batalla->esCoordenadaValida(coordX, coordY, coordZ)
 				&& batalla->esCoordenadaValida(coordX + 2, coordY + 2,
