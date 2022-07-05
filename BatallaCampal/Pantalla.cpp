@@ -60,7 +60,7 @@ void Pantalla::creacionImagen() {
 		}
 
 		this->Window->get(z)->WriteToFile(
-				("tablero" + std::to_string(z) + ".bmp").c_str());
+				("tablero" + to_string(z) + ".bmp").c_str());
 	}
 }
 
@@ -76,7 +76,7 @@ void Pantalla::pintarCirculo(int centerX, int centerY, int z) {
 			FontColor);
 
 	this->Window->get(z)->WriteToFile(
-			("tablero" + std::to_string(z) + ".bmp").c_str());
+			("tablero" + to_string(z) + ".bmp").c_str());
 }
 
 void Pantalla::pintarCirculoRojo(int centerX, int centerY, int z) {
@@ -91,7 +91,7 @@ void Pantalla::pintarCirculoRojo(int centerX, int centerY, int z) {
 			FontColor);
 
 	this->Window->get(z)->WriteToFile(
-			("tablero" + std::to_string(z) + ".bmp").c_str());
+			("tablero" + to_string(z) + ".bmp").c_str());
 }
 
 void Pantalla::pintarLineas(int tamanio) {
@@ -116,7 +116,7 @@ void Pantalla::pintarLineas(int tamanio) {
 			}
 		}
 		this->Window->get(z)->WriteToFile(
-				("tablero" + std::to_string(z) + ".bmp").c_str());
+				("tablero" + to_string(z) + ".bmp").c_str());
 	}
 }
 void Pantalla::pintarCuadrado(int xi, int yi, int xf, int yf, int z,
@@ -148,7 +148,7 @@ void Pantalla::pintarCuadrado(int xi, int yi, int xf, int yf, int z,
 		yi++;
 	}
 	this->Window->get(z)->WriteToFile(
-			("tablero" + std::to_string(z) + ".bmp").c_str());
+			("tablero" + to_string(z) + ".bmp").c_str());
 }
 
 void Pantalla::generarMapa(BatallaCampal* batalla, Pantalla* pantalla) {
@@ -260,16 +260,15 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 		cout << "Elegir Columna (C) o Fila (F): " << endl;
 		cin >> filaOColumna;
 	}
-	
-	cout << "Ingrese coordenadas: "<<endl;
-	if(carta->getTipoDeCarta() == MINAS){
+
+	cout << "Ingrese coordenadas: " << endl;
+	if (carta->getTipoDeCarta() == MINAS) {
 		cout << "Fila: ";
 		cin >> coordX;
 		cout << "Columna: ";
 		cin >> coordY;
 		coordZ = 1;
-	}
-	else{
+	} else {
 		cout << "Fila: ";
 		cin >> coordX;
 		cout << "Columna: ";

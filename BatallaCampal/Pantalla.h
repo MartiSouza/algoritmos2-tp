@@ -1,6 +1,7 @@
 #ifndef SRC_PANTALLA_H_
 #define SRC_PANTALLA_H_
 #include <stdlib.h>
+#include <string>
 #include "BatallaCampal.h"
 
 class Pantalla {
