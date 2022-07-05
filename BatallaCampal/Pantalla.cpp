@@ -286,7 +286,6 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	if (carta->getTipoDeCarta() == RADAR) {
 		cout << "En los alrededores se encuentran " << batalla->usarRadar(coordX, coordY, coordZ)
 			<< " cantidad de fichas" << endl;
-		}
 	} else {
 		batalla->usarCarta(jugador, numeroCarta, coordX, coordY, coordZ,
 				filaOColumna);
@@ -297,6 +296,7 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	cout << "Ejecutado carta " << carta->getDescripcion() << endl;
 	jugador->eliminarCarta(numeroCarta);
 }
+
 void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 		Jugador* jugador) {
 
@@ -344,7 +344,7 @@ void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
 	}
 
 	char opcionUsuarioC;
-	int contador = 0;
+	unsigned int contador = 0;
 	
 	cout << "Generando nueva carta..." << endl;
 	if (jugador->getCantidadDeCartas() == 5) {
