@@ -8,4 +8,8 @@ Agregados:
 Falta:
 
 -Pintar con X los disparos del misil.
--Pintar con X los disparos del superMisil
+-Pintar con X los disparos del superMisil.
+
+Errores:
+
+-Elimina soldados sin considerar la altura del disparo.
