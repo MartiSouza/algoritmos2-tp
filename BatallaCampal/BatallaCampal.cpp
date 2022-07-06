@@ -400,26 +400,29 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna, int a
 
 			if (this->soldadosCoincidenDistinto(fichaAux->getPosicionX(),
 					fichaAux->getPosicionY())) {
-
+				this->eliminarPorEncuentro();
 				this->tablero->getCasilla(fichaAux->getPosicionX(),
 						fichaAux->getPosicionY(), 1)->setEstado(INACTIVO);
 				this->realizarDisparo(fichaAux->getPosicionX(),
 						fichaAux->getPosicionY(), 1);
-				this->huboCuerpoACuerpo = true;
+				
 			}
 
 			if (this->tablero->getCasilla(fichaAux->getPosicionX(),
 					fichaAux->getPosicionY(), 1)->getEstado() == MINADO) {
+				this->eliminarPorMina();
 				this->tablero->getCasilla(fichaAux->getPosicionX(),
 						fichaAux->getPosicionY(), 1)->setEstado(INACTIVO);
 				this->realizarDisparo(fichaAux->getPosicionX(),
 						fichaAux->getPosicionY(), 1);
-				this->eliminadoPorMina = true;
+				
 			}
 
 			return fichaAux;
-		} 
-			
+		}
+		
+		this->resetearTurnoEncuentro();
+		this->resetearTurnoMina();	
 	}
 
 	jugador->getHerramienta()->reiniciarCursor();
