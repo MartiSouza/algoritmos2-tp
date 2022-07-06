@@ -8,16 +8,12 @@ Agregados:
 
 -Se puede mover el armamento
 
+-Bitmap pinta ahora si todas las cartas
+
 Falta:
-
--Pintar con X los disparos del misil.
-
--Pintar con X los disparos del superMisil.
 
 -eliminar armamento al disparar.
 
 Errores:
 
 -Elimina soldados sin considerar la altura del disparo.
-
--Por alguna razón me falló el disparo del barco.
