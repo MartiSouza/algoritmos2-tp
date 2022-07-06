@@ -279,7 +279,103 @@ void BatallaCampal::realizarMovimiento(char movimiento, int fila, int columna,
 		break;
 	}
 }
-Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna,
+
+void BatallaCampal::realizarMovimientoArmamento(char movimiento, int fila, int columna,
+		Ficha* armamentoAux) {
+
+	switch (movimiento) {
+	case ARRIBA:
+		if (this->tablero->getCasilla(fila - 1, columna, 1)->getEstado()
+				!= INACTIVO && (fila - 1) > 0
+				&& fila < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila - 1, columna);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case ABAJO:
+		if (this->tablero->getCasilla(fila + 1, columna, 1)->getEstado()
+						!= INACTIVO && (fila + 1) > 0
+				&& fila < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila + 1, columna);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case IZQUIERDA:
+		if (this->tablero->getCasilla(fila, columna - 1, 1)->getEstado()
+						!= INACTIVO && (columna - 1) > 0
+				&& columna < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila, columna - 1);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case DERECHA:
+		if (this->tablero->getCasilla(fila, columna + 1, 1)->getEstado()
+						!= INACTIVO && (columna + 1) > 0
+				&& columna < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila, columna + 1);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case DIAGONAL_SUP_IZQ:
+		if ((this->tablero->getCasilla(fila - 1, columna - 1, 1)->getEstado()
+						!= INACTIVO) && ((columna - 1) > 0)
+				&& ((columna - 1) < this->getDimensionDelTablero())
+				&& ((fila - 1) > 0)
+				&& ((fila - 1) < this->getDimensionDelTablero())) {
+
+			armamentoAux->setCoordenadasSoldado(fila - 1, columna - 1);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case DIAGONAL_SUP_DER:
+		if (this->tablero->getCasilla(fila + 1, columna - 1, 1)->getEstado()
+						!= INACTIVO && (columna - 1) > 0
+				&& columna - 1 < this->getDimensionDelTablero()
+				&& (fila + 1 > 0)
+				&& (fila + 1) < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila + 1, columna - 1);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case DIAGONAL_INF_IZQ:
+		if (this->tablero->getCasilla(fila - 1, columna + 1, 1)->getEstado()
+						!= INACTIVO && (columna + 1) > 0
+				&& columna + 1 < this->getDimensionDelTablero()
+				&& (fila - 1 > 0)
+				&& (fila - 1) < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila - 1, columna + 1);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	case DIAGONAL_INF_DER:
+		if (this->tablero->getCasilla(fila + 1, columna + 1, 1)->getEstado()
+						!= INACTIVO && (columna + 1) > 0
+				&& columna + 1 < this->getDimensionDelTablero()
+				&& (fila + 1 > 0)
+				&& (fila + 1) < this->getDimensionDelTablero()) {
+
+			armamentoAux->setCoordenadasSoldado(fila + 1, columna + 1);
+		} else {
+			throw "Movimiento invalido.";
+		}
+		break;
+	}
+}
+
+Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna, int altura,
 		Jugador* jugador) {
 	if (!esCoordenadaValida(fila, columna)) {
 		throw "Las magnitudes elegidas para mover al soldado no son validas.";
@@ -291,41 +387,53 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna,
 		throw "El movimiento elegido no es valido";
 	}
 
-	Ficha* soldadoAux = NULL;
+	Ficha* fichaAux = NULL;
 
 	jugador->getSoldado()->reiniciarCursor();
 	while (jugador->getSoldado()->avanzarCursor()) {
 		if (jugador->getSoldado()->getCursor()->getPosicionX() == fila
 				&& jugador->getSoldado()->getCursor()->getPosicionY()
-						== columna) {
-			soldadoAux = jugador->getSoldado()->getCursor();
+						== columna && jugador->getSoldado()->getCursor()->getPosicionZ() == altura) {
+			fichaAux = jugador->getSoldado()->getCursor();
 
-			realizarMovimiento(movimiento, fila, columna, soldadoAux);
+			realizarMovimiento(movimiento, fila, columna, fichaAux);
 
-			if (this->soldadosCoincidenDistinto(soldadoAux->getPosicionX(),
-					soldadoAux->getPosicionY())) {
+			if (this->soldadosCoincidenDistinto(fichaAux->getPosicionX(),
+					fichaAux->getPosicionY())) {
 
-				this->tablero->getCasilla(soldadoAux->getPosicionX(),
-						soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
-				this->realizarDisparo(soldadoAux->getPosicionX(),
-						soldadoAux->getPosicionY(), 1);
+				this->tablero->getCasilla(fichaAux->getPosicionX(),
+						fichaAux->getPosicionY(), 1)->setEstado(INACTIVO);
+				this->realizarDisparo(fichaAux->getPosicionX(),
+						fichaAux->getPosicionY(), 1);
 				this->huboCuerpoACuerpo = true;
 			}
 
-			if (this->tablero->getCasilla(soldadoAux->getPosicionX(),
-					soldadoAux->getPosicionY(), 1)->getEstado() == MINADO) {
-				this->tablero->getCasilla(soldadoAux->getPosicionX(),
-						soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
-				this->realizarDisparo(soldadoAux->getPosicionX(),
-						soldadoAux->getPosicionY(), 1);
+			if (this->tablero->getCasilla(fichaAux->getPosicionX(),
+					fichaAux->getPosicionY(), 1)->getEstado() == MINADO) {
+				this->tablero->getCasilla(fichaAux->getPosicionX(),
+						fichaAux->getPosicionY(), 1)->setEstado(INACTIVO);
+				this->realizarDisparo(fichaAux->getPosicionX(),
+						fichaAux->getPosicionY(), 1);
 				this->eliminadoPorMina = true;
 			}
 
-			return soldadoAux;
+			return fichaAux;
 		} 
 			
 	}
-	return soldadoAux;
+
+	jugador->getHerramienta()->reiniciarCursor();
+	while (jugador->getHerramienta()->avanzarCursor()) {
+		if (jugador->getHerramienta()->getCursor()->getPosicionX() == fila
+				&& jugador->getHerramienta()->getCursor()->getPosicionY()
+						== columna && jugador->getHerramienta()->getCursor()->getPosicionZ() == altura){
+			fichaAux = jugador->getHerramienta()->getCursor();
+
+			realizarMovimientoArmamento(movimiento, fila, columna, fichaAux);
+		}
+	}
+
+	return fichaAux;
 }
 
 void BatallaCampal::dispararMisil(int fila, int columna, int altura) {
