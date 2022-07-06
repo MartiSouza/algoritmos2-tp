@@ -232,7 +232,8 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador) {
 				this->pintarCirculo(coordX, coordY, 1, jugador);
 			} else {
 				cout << "Tu soldado se ahogó" << endl;
-				this->pintarEquis(coordX, coordY, 1);
+				this->pintarEquis(coordY, coordZ, 1);
+				batalla->getTablero()->getCasilla(coordX, coordY, 1)->setEstado(INACTIVO);
 			}
 		} else {
 			throw "Coordenada invalida";
