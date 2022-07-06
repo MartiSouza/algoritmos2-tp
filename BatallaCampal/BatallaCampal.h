@@ -183,6 +183,12 @@ public:
 	 * Post: devuelve true si el soldado fue eliminado por una mina al moverse
 	 */
 	bool seEliminoPorMina();
+			
+	/*
+	 * Pre: 
+	 * Post: devuelve true si se encuentran 2 soldados enemigos
+	 */
+	bool seEncontraronRivales();
 
 };
 
