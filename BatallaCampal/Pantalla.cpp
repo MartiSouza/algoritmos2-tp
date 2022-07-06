@@ -232,6 +232,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador) {
 				this->pintarCirculo(coordX, coordY, 1, jugador);
 			} else {
 				cout << "Tu soldado se ahogó" << endl;
+				this->pintarEquis(coordX, coordY, 1);
 			}
 		} else {
 			throw "Coordenada invalida";
@@ -250,8 +251,8 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	unsigned int coordZ;
 	char filaOColumna;
 	unsigned int numeroCarta;
-	
-	cout << "Elegir carta: " << endl;
+
+	cout << "Elegir carta: ";
 	cin >> numeroCarta;
 	if (numeroCarta > jugador->getCantidadDeCartas() || numeroCarta < 1) {
 		throw "Numero de carta no disponible";
@@ -338,7 +339,7 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 	}
 }
 void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
-	
+
 	if (batalla == NULL || jugador == NULL) {
 		throw "Error en la carga";
 	}
@@ -387,7 +388,9 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 	char opcionUsuarioC;
 	unsigned int coordX;
 	unsigned int coordY;
-	bool haySoldado;
+	unsigned int coordZ;
+	bool hayFicha;
+	bool esHerramienta = false;
 	
 	cout << "Cantidad de soldados: " << jugador->getCantidadDeSoldados()
 			<< endl;
@@ -400,54 +403,76 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 		while (jugador->getSoldado()->avanzarCursor()) {
 			cout << "Soldado: ["
 					<< jugador->getSoldado()->getCursor()->getPosicionX() << ","
-					<< jugador->getSoldado()->getCursor()->getPosicionY() << "]"
+					<< jugador->getSoldado()->getCursor()->getPosicionY() << ","
+					<< jugador->getSoldado()->getCursor()->getPosicionZ() << "]"
+					<< endl;
+		}
+		jugador->getHerramienta()->reiniciarCursor();
+		while (jugador->getHerramienta()->avanzarCursor()){
+			cout << "Armamento: ["
+					<< jugador->getHerramienta()->getCursor()->getPosicionX() << ","
+					<< jugador->getHerramienta()->getCursor()->getPosicionY() << ","
+					<< jugador->getHerramienta()->getCursor()->getPosicionZ() << "]"
 					<< endl;
 		}
 		cout << "fila: ";
 		cin >> coordX;
 		cout << "columna: ";
 		cin >> coordY;
+		cout << "altura: ";
+		cin >> coordZ;
 		
+		jugador->getSoldado()->reiniciarCursor();
 		while(jugador->getSoldado()->avanzarCursor()){
 			if(coordX == jugador->getSoldado()->getCursor()->getPosicionX() && coordY == jugador->getSoldado()->getCursor()->getPosicionY()){
-				haySoldado = true;
+				hayFicha = true;
+			}
+		}
+		jugador->getHerramienta()->reiniciarCursor();
+		while(jugador->getHerramienta()->avanzarCursor()){
+			if(coordX == jugador->getHerramienta()->getCursor()->getPosicionX() && coordY == jugador->getHerramienta()->getCursor()->getPosicionY()
+					&& coordZ == jugador->getHerramienta()->getCursor()->getPosicionZ()){
+				hayFicha = true;
+				esHerramienta = true;
 			}
 		}
 		
-		if(!haySoldado){
-			throw "no tienes ningun soldado en esa posicion!";
+		if(!hayFicha){
+			throw "no tienes ninguna ficha en esa posicion!";
 		}
 		
-		cout << "Elija movimiento (WASD): ";
+		cout << "Elija movimiento (Q-W-E-A-S-D-Z-C): ";
 		cin >> movimiento;
-		cout << "Moviendo soldado..." << endl;
+		cout << "Moviendo ficha..." << endl;
 
-		TipoDeCasillero tipo = batalla->getTablero()->getCasilla(coordX, coordY,
-				1)->getTipoDeCasilla();
-		int xi = coordX * 20;
-		int xf = (coordX * 20) + 20;
-		int yi = coordY * 20;
-		int yf = (coordY * 20) + 20;
-		this->pintarCuadrado(yi, xi, yf, xf, 1, tipo);
+			TipoDeCasillero tipo = batalla->getTablero()->getCasilla(coordX, coordY, coordZ)->getTipoDeCasilla();
+			int xi = coordX * 20;
+			int xf = (coordX * 20) + 20;
+			int yi = coordY * 20;
+			int yf = (coordY * 20) + 20;
+			this->pintarCuadrado(yi, xi, yf, xf, coordZ, tipo);
 
-		Ficha* soldado = batalla->moverSoldado(movimiento, coordX, coordY,
-				jugador);
+			Ficha* ficha = batalla->moverSoldado(movimiento, coordX, coordY, coordZ, jugador);
 
-		if (soldado != NULL) {
-			int x = soldado->getPosicionX();
-			int y = soldado->getPosicionY();
-			this->pintarCirculo(x, y, 1, jugador);
+			if (ficha != NULL) {
+				int x = ficha->getPosicionX();
+				int y = ficha->getPosicionY();
+				int z = ficha->getPosicionZ();
+				this->pintarCirculo(x, y, z, jugador);
 
-			if (batalla->seEliminoPorMina()) {
-				cout << "El soldado que moviste piso una mina!" << endl;
-				this->pintarEquis(x, y, 1);
-			}else if(batalla->seEncontraronRivales()){
-				cout<< "Se encontraron 2 soldados enemigos! ambos mueren!"<<endl;
-				this->pintarEquis(x, y, 1);
+			if(!esHerramienta){
+
+				if (batalla->seEliminoPorMina()) {
+					cout << "El soldado que moviste piso una mina!" << endl;
+					this->pintarEquis(x, y, 1);
+				}else if(batalla->seEncontraronRivales()){
+					cout<< "Se encontraron 2 soldados enemigos! ambos mueren!"<<endl;
+					this->pintarEquis(x, y, 1);
+				}
 			}
-		}
+			}
 
-		pintarLineas((batalla->getDimensionDelTablero() + 20));
+			pintarLineas((batalla->getDimensionDelTablero() + 20));
 	}
 }
 
