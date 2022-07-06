@@ -83,7 +83,7 @@ public:
 	 * Pre: Necesita el tipo de movimento, las coordenadas de la fila y la columna, y el turno
 	 * Post: Si el movimiento es valido, mueve un soldado a una casilla de distancia, devuelve el soldado movido
 	 */
-	Ficha* moverSoldado(char movimiento, int x, int y, Jugador* jugador);
+	Ficha* moverSoldado(char movimiento, int x, int y, int z, Jugador* jugador);
 	/*
 	 * Post: Devuelve la cantidad de jugadores que hay en la batalla
 	 */
@@ -179,6 +179,12 @@ public:
 	 */
 	void realizarMovimiento(char movimiento, int fila, int columna,
 			Ficha* soldado);
+	/*
+	 * Pre: recibe el movimiento solicitado al usuario, la fila y columna del soldado elegido por el usuario y el armamento a mover
+	 * Post: Si la casilla a donde se mueve es válida, mueve el armamento a esa posicion
+	 */
+	void realizarMovimientoArmamento(char movimiento, int fila, int columna,
+			Ficha* armamento);
 	/*
 	 * Pre:
 	 * Post: devuelve true si el soldado fue eliminado por una mina al moverse
