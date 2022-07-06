@@ -91,9 +91,9 @@ void Pantalla::pintarEquis(int x, int y, int z) {
 	FontColor.Red = 255;
 	FontColor.Green = 0;
 	FontColor.Blue = 0;
-	DrawLine(*this->Window->get(z), x * 20, y * 20, x * 20 + 20, y * 20 + 20,
+	DrawLine(*this->Window->get(z), x*20 + 3, y*20 + 3, x*20 + 17, y*20 + 17,
 			FontColor);
-	DrawLine(*this->Window->get(z), x * 20 + 20, y * 20, x * 20, y * 20 + 20,
+	DrawLine(*this->Window->get(z), x*20 + 17, y*20 + 3, x*20 + 3, y*20 + 17,
 			FontColor);
 	stringstream ss;
 	ss << "tablero" << z << ".bmp";
