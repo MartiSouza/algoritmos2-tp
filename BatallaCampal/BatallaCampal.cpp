@@ -6,7 +6,8 @@ BatallaCampal::BatallaCampal(unsigned int cantidadJugadores,
 	this->estadoDelJuegoActual = JUGANDO;
 	this->turno = 0;
 	this->eliminadoPorMina = false;
-
+	this->huboCuerpoACuerpo = false;
+	
 	if (cantidadJugadores < MIN_JUGADORES || cantidadJugadores > MAX_JUGADORES) {
 		throw "La cantidad de jugadores elegida es invalida.";
 	} else {
@@ -308,6 +309,7 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna,
 						soldadoAux->getPosicionY(), 1)->setEstado(INACTIVO);
 				this->realizarDisparo(soldadoAux->getPosicionX(),
 						soldadoAux->getPosicionY(), 1);
+				this->huboCuerpoACuerpo = true;
 			}
 
 			if (this->tablero->getCasilla(soldadoAux->getPosicionX(),
@@ -320,9 +322,8 @@ Ficha* BatallaCampal::moverSoldado(char movimiento, int fila, int columna,
 			}
 
 			return soldadoAux;
-		} else {
-			throw "Soldado no encontrado";
-		}
+		} 
+			
 	}
 	return soldadoAux;
 }
@@ -567,4 +568,8 @@ BatallaCampal::~BatallaCampal() {
 
 bool BatallaCampal::seEliminoPorMina() {
 	return this->eliminadoPorMina;
+}
+
+bool BatallaCampal::seEncontraronRivales(){
+	return this->huboCuerpoACuerpo;
 }
