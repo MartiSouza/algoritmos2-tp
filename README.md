@@ -8,3 +8,4 @@ Agregados:
 Falta:
 
 -Pintar con X los disparos del misil.
+-Pintar con X los disparos del superMisil
