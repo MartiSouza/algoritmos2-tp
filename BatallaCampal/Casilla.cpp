@@ -32,7 +32,7 @@ void Casilla::setTipoDeCasillero(TipoDeCasillero tipo) {
 
 void Casilla::setEstado(EstadoDelCasillero estadoCasilla) {
 	if (estadoCasilla == VACIO || estadoCasilla == LLENO
-			|| estadoCasilla == INACTIVO) {
+			|| estadoCasilla == INACTIVO || estadoCasilla == MINADO) {
 		this->estadoCasilla = estadoCasilla;
 		if (estadoCasilla == VACIO) {
 			this->estadoActual = VACIA;
