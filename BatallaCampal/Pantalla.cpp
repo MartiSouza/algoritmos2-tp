@@ -326,7 +326,13 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				for (int k = -1; k <= 1; k++) {
-					this->pintarEquis(coordX + i, coordY + j, coordZ + k);
+					if ((coordX + i) > 0 && (coordY + j) > 0 && (coordZ + k) > 0
+						&& (coordX + i) <= this->getDimensionDelTablero()
+						&& (coordY + j) <= this->getDimensionDelTablero()
+						&& (coordZ + k) <= this->getDimensionDelTablero()) {
+
+						this->pintarEquis(coordY + i, coordX + j, coordZ + k);
+					}
 				}
 			}
 		}
