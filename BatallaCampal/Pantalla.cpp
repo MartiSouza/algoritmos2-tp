@@ -264,14 +264,15 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 		cin >> filaOColumna;
 	}
 
-	cout << "Ingrese coordenadas: " << endl;
 	if (carta->getTipoDeCarta() == MINAS) {
+		cout << "Ingrese coordenadas para colocar la mina: " << endl;
 		cout << "Fila: ";
 		cin >> coordX;
 		cout << "Columna: ";
 		cin >> coordY;
 		coordZ = 1;
 	} else {
+		cout << "Ingrese coordenadas para posicionar el armamento/usar el radar: " << endl;
 		cout << "Fila: ";
 		cin >> coordX;
 		cout << "Columna: ";
