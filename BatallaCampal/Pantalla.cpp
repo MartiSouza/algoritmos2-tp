@@ -509,14 +509,19 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 
 				if (batalla->seEliminoPorMina()) {
 					cout << "El soldado que moviste piso una mina!" << endl;
-					this->pintarEquis(x, y, 1);
+					batalla->realizarDisparo(coordX, coordY, coordZ);
+					this->pintarEquis(y, x, 1);
 				}else if(batalla->seEncontraronRivales()){
 					cout<< "Se encontraron 2 soldados enemigos! ambos mueren!"<<endl;
-					this->pintarEquis(x, y, 1);
+					batalla->realizarDisparo(coordX, coordY, coordZ);
+					this->pintarEquis(y, x, 1);
 				}
 			}
 			}
-
+				
+			cout << "La casilla ahora esta: "
+			<< batalla->getTablero()->getCasilla(coordX, coordY, coordZ)->getEstadoActual()
+			<< endl;
 			pintarLineas((batalla->getDimensionDelTablero() + 20));
 	}
 }
