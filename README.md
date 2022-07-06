@@ -17,3 +17,5 @@ Falta:
 Errores:
 
 -Elimina soldados sin considerar la altura del disparo.
+
+-Mina sigue fallando
