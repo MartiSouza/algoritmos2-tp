@@ -21,5 +21,3 @@ Errores:
 -Elimina soldados sin considerar la altura del disparo.
 
 -Por alguna razón me falló el disparo del barco.
-
--Variables inicializadas en un atributo de jugador.h
