@@ -477,7 +477,7 @@ void Pantalla::solicitarDisparo(BatallaCampal* batalla) {
 			cout << "Disparo fallido!" << endl;
 		}
 		batalla->realizarDisparo(coordX, coordY, coordZ);
-		this->pintarEquis(coordX, coordY, coordZ);
+		this->pintarEquis(coordY, coordX, coordZ);
 	}
 	cout << "La casilla ahora esta: "
 			<< batalla->getTablero()->getCasilla(coordX, coordY, coordZ)->getEstadoActual()
