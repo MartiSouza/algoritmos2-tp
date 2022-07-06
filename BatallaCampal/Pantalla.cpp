@@ -384,7 +384,8 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 	char opcionUsuarioC;
 	unsigned int coordX;
 	unsigned int coordY;
-
+	bool haySoldado;
+	
 	cout << "Cantidad de soldados: " << jugador->getCantidadDeSoldados()
 			<< endl;
 	cout << " Desea mover un soldado? (SI: S, NO: N): ";
@@ -403,7 +404,17 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 		cin >> coordX;
 		cout << "columna: ";
 		cin >> coordY;
-
+		
+		while(jugador->getSoldado()->avanzarCursor()){
+			if(coordX == jugador->getSoldado()->getCursor()->getPosicionX() && coordY == jugador->getSoldado()->getCursor()->getPosicionY()){
+				haySoldado = true;
+			}
+		}
+		
+		if(!haySoldado){
+			throw "no tienes ningun soldado en esa posicion!";
+		}
+		
 		cout << "Elija movimiento (WASD): ";
 		cin >> movimiento;
 		cout << "Moviendo soldado..." << endl;
@@ -426,6 +437,11 @@ void Pantalla::solicitarMovimiento(BatallaCampal* batalla, Jugador* jugador) {
 
 			if (batalla->seEliminoPorMina()) {
 				cout << "El soldado que moviste piso una mina!" << endl;
+				this->pintarEquis(x, y, 1);
+			}
+						
+			if(batalla->seEncontraronRivales()){
+				cout<< "Se encontraron 2 soldados enemigos! ambos mueren!"<<endl;
 				this->pintarEquis(x, y, 1);
 			}
 		}
