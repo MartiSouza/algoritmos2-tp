@@ -196,7 +196,32 @@ public:
 	 * Post: devuelve true si se encuentran 2 soldados enemigos
 	 */
 	bool seEncontraronRivales();
-
+	
+	/*
+	 * Pre: 
+	 * Post: cambia el estado de la variable eliminado por mina a true
+	 */
+	void eliminarPorMina();	
+	
+	/*
+	 * Pre: 
+	 * Post: cambia el estado de la variable huboCuerpoACuerpo a true
+	 */
+	void eliminarPorEncuentro();
+				
+	/*
+	 * Pre: 
+	 * Post: cambia el estado de la variable eliminado por mina a false
+	 */
+	void resetearTurnoMina();
+		 		
+	/*
+	 * Pre: 
+	 * Post: cambia el estado de la variable huboCuerpoACuerpo a false
+	 */
+	void resetearTurnoEncuentro();
+		
+	
 };
 
 #endif
