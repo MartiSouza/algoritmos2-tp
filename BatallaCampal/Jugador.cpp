@@ -10,6 +10,13 @@ Jugador::Jugador(unsigned int id, int cantidadSoldados) {
 	if (cantidadSoldados < 1) {
 		throw "Cantidad inválida de soldados para el jugador.";
 	}
+	
+	this->claros[0] = 0;
+	this->claros[1] = 102;
+	this->claros[2] = 51;
+	this->oscuros[0] = 0;
+	this->oscuros[1] = 255;
+	this->oscuros[2] = 127;
 
 	this->id = id;
 	this->cantidadSoldados = cantidadSoldados;
