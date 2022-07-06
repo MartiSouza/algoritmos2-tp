@@ -14,6 +14,8 @@ Falta:
 
 -eliminar armamento al disparar.
 
+-Pintar X cuando ambos soldados se superponen
+
 Errores:
 
 -Elimina soldados sin considerar la altura del disparo.
