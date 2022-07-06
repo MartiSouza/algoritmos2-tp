@@ -199,7 +199,7 @@ public:
 	
 	/*
 	 * Pre: 
-	 * Post: cambia el estado de la variable eliminado por mina a true
+	 * Post: cambia el estado de la variable eliminadoPorMina a true
 	 */
 	void eliminarPorMina();	
 	
@@ -211,7 +211,7 @@ public:
 				
 	/*
 	 * Pre: 
-	 * Post: cambia el estado de la variable eliminado por mina a false
+	 * Post: cambia el estado de la variable eliminadoPorMina a false
 	 */
 	void resetearTurnoMina();
 		 		
