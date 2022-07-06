@@ -232,7 +232,7 @@ void Pantalla::solicitarSoldados(BatallaCampal* batalla, Jugador* jugador) {
 				this->pintarCirculo(coordX, coordY, 1, jugador);
 			} else {
 				cout << "Tu soldado se ahogó" << endl;
-				this->pintarEquis(coordY, coordZ, 1);
+				this->pintarEquis(coordY, coordX, 1);
 				batalla->getTablero()->getCasilla(coordX, coordY, 1)->setEstado(INACTIVO);
 			}
 		} else {
@@ -264,6 +264,26 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	if (carta->getTipoDeCarta() == SUPER) {
 		cout << "Elegir Columna (C) o Fila (F): " << endl;
 		cin >> filaOColumna;
+
+		if(filaOColumna == 'C'){
+			cout << "Columna: ";
+			cin >> coordY;
+			coordX = 1;
+			coordZ = 1;
+			for (int k = 1; k <= this->getDimensionDelTablero(); k++) {
+					this->pintarEquis(coordY, k, 1);
+			}
+		}
+		else{
+			cout << "Fila: ";
+			cin >> coordX;
+			coordY = 1;
+			coordZ = 1;
+			for (int k = 1; k <= this->getDimensionDelTablero(); k++) {
+					this->pintarEquis(k, coordX, 1);
+			}
+		}
+
 	}
 
 	if (carta->getTipoDeCarta() == MINAS) {
@@ -273,14 +293,32 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 		cout << "Columna: ";
 		cin >> coordY;
 		coordZ = 1;
-	} else {
-		cout << "Ingrese coordenadas para posicionar el armamento/usar el radar: " << endl;
+	} else if (carta->getTipoDeCarta() != SUPER){
+		cout << "Ingrese coordenadas para posicionar el armamento/ usar el radar/ lanzar misil: " << endl;
 		cout << "Fila: ";
 		cin >> coordX;
 		cout << "Columna: ";
 		cin >> coordY;
 		cout << "Altura: ";
 		cin >> coordZ;
+	}
+
+	if(carta->getTipoDeCarta() == MISIL){
+
+		batalla->dispararMisil(coordX, coordY, coordZ);
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				for (int k = -1; k <= 1; k++) {
+					if ((coordY + i) > 0 && (coordX + j) > 0 && (coordZ + k) > 0
+								&& (coordY + i) <= this->getDimensionDelTablero()
+								&& (coordX + j) <= this->getDimensionDelTablero()
+								&& (coordZ + k) <= this->getDimensionDelTablero()) {
+
+						this->pintarEquis(coordY + i, coordX + j, coordZ + k);
+					}
+				}
+			}
+		}
 	}
 
 	if (carta->getTipoDeCarta() == RADAR) {
@@ -326,10 +364,10 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				for (int k = -1; k <= 1; k++) {
-					if ((coordX + i) > 0 && (coordY + j) > 0 && (coordZ + k) > 0
-						&& (coordX + i) <= this->getDimensionDelTablero()
-						&& (coordY + j) <= this->getDimensionDelTablero()
-						&& (coordZ + k) <= this->getDimensionDelTablero()) {
+					if ((coordY + i) > 0 && (coordX + j) > 0 && (coordZ + k) > 0
+								&& (coordY + i) <= this->getDimensionDelTablero()
+								&& (coordX + j) <= this->getDimensionDelTablero()
+								&& (coordZ + k) <= this->getDimensionDelTablero()) {
 
 						this->pintarEquis(coordY + i, coordX + j, coordZ + k);
 					}
