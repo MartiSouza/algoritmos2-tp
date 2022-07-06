@@ -250,14 +250,7 @@ void Pantalla::usarUnaCarta(BatallaCampal* batalla, Jugador* jugador) {
 	unsigned int coordZ;
 	char filaOColumna;
 	unsigned int numeroCarta;
-	jugador->getCarta()->reiniciarCursor();
-	cout << "Cartas disponibles: " << endl;
-	int id = 1;
-	while (jugador->getCarta()->avanzarCursor()) {
-		cout << id << "." << jugador->getCarta()->getCursor()->getDescripcion()
-				<< endl;
-		id++;
-	}
+	
 	cout << "Elegir carta: " << endl;
 	cin >> numeroCarta;
 	if (numeroCarta > jugador->getCantidadDeCartas() || numeroCarta < 1) {
@@ -344,7 +337,7 @@ void Pantalla::usarHerramienta(BatallaCampal* batalla, Ficha* herramientaAux,
 	}
 }
 void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
-
+	
 	if (batalla == NULL || jugador == NULL) {
 		throw "Error en la carga";
 	}
@@ -358,7 +351,16 @@ void Pantalla::solicitarCarta(BatallaCampal* batalla, Jugador* jugador) {
 	}
 	int aleatorio = rand() % 6 + 1;
 	jugador->nuevaCarta(aleatorio);
-	cout << "Cartas del jugador: " << jugador->getCantidadDeCartas() << endl;
+
+	jugador->getCarta()->reiniciarCursor();
+	cout << "Cartas disponibles: " << endl;
+	int id = 1;
+	while (jugador->getCarta()->avanzarCursor()) {
+		cout << id << "." << jugador->getCarta()->getCursor()->getDescripcion()
+				<< endl;
+		id++;
+	}
+
 	cout << "Desea usar una carta? (SI: S, NO: N): ";
 	cin >> opcionUsuarioC;
 	if (opcionUsuarioC == 'S') {
