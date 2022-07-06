@@ -684,3 +684,19 @@ bool BatallaCampal::seEliminoPorMina() {
 bool BatallaCampal::seEncontraronRivales(){
 	return this->huboCuerpoACuerpo;
 }
+
+void BatallaCampal::eliminarPorEncuentro(){
+	this->huboCuerpoACuerpo = true;
+}
+
+void BatallaCampal::eliminarPorMina(){
+	this->eliminadoPorMina = true;
+}
+
+void BatallaCampal::resetearTurnoEncuentro(){
+	this->huboCuerpoACuerpo = false;
+}
+
+void BatallaCampal::resetearTurnoMina(){
+	this->eliminadoPorMina = false;
+}
