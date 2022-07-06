@@ -40,6 +40,7 @@ private:
 	unsigned int cantidadSoldados;
 	estadoDelJuego estadoDelJuegoActual;
 	bool eliminadoPorMina;
+	bool huboCuerpoACuerpo;
 
 public:
 
