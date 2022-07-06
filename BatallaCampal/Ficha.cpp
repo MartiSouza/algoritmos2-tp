@@ -81,8 +81,8 @@ void Ficha::definirTipo(char tipo) {
 }
 
 void Ficha::setCoordenadasSoldado(int posicionX, int posicionY) {
-	if (this->tipo != SOLDADO) {
-		throw "No deberías cambiar la posición de esta ficha porque no es de soldado :)";
+	if (this->tipo != SOLDADO && this->tipo != AVION && this->tipo != BARCO) {
+		throw "No deberías cambiar la posición de esta ficha";
 	} else {
 		this->posicionX = posicionX;
 		this->posicionY = posicionY;
