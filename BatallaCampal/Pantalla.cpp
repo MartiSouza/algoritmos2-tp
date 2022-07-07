@@ -156,10 +156,6 @@ void Pantalla::pintarCuadrado(int xi, int yi, int xf, int yf, int z,
 		DrawLine(*this->Window->get(z), xi, yi, xf, yi, FontColor);
 		yi++;
 	}
-	stringstream ss;
-	ss << "tablero" << z << ".bmp";
-
-	this->Window->get(z)->WriteToFile(ss.str().c_str());
 }
 
 void Pantalla::generarMapa(BatallaCampal* batalla, Pantalla* pantalla) {
