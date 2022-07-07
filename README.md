@@ -9,11 +9,3 @@ Agregados:
 -Se puede mover el armamento
 
 -Bitmap pinta ahora si todas las cartas
-
-Falta:
-
--eliminar armamento al disparar.
-
-Errores:
-
--Elimina soldados sin considerar la altura del disparo.
